@@ -21,14 +21,16 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'flex-start',
-		cursor: 'pointer'
+		cursor: 'pointer',
+		marginBottom: '10px'
 	},
 	itemDoor: {
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'flex-start',
 		cursor: 'pointer',
-		marginLeft: '12px'
+		marginLeft: '12px',
+		marginTop: '5px'
 	},
 
 	icon: {
@@ -90,35 +92,8 @@ class Equipments extends Component {
 				<Typography classes={{root: classes.itemName}} onClick={() => this.handleCheckDoor(item)}>
 					Avec porte
 				</Typography>
-				{item.door ? (
-					<React.Fragment>
-						<Typography classes={{root: classes.itemName}} onClick={() => this.handleCheckShutter(item, 'arch')}>Cintrée</Typography>
-						<Radio
-							classes={{root: classes.radio}}
-							checked={item.doorType === 'arch'}
-							onChange={() => this.handleCheckShutter(item, 'arch')}
-						/>
-						<Typography classes={{root: classes.itemName}} onClick={() => this.handleCheckShutter(item, 'rectangular')}>Rectangulaire</Typography>
-						<Radio
-							classes={{root: classes.radio}}
-							checked={item.doorType === 'rectangular'}
-							onChange={() => this.handleCheckShutter(item, 'rectangular')}
-						/>
-					</React.Fragment>
-					) : null}
 			</div>
 		)
-	}
-
-	handleCheckShutter(item, type) {
-		const {onChange} = this.props
-		const itemsSelected = this.props.itemsSelected.slice()
-		const idx = itemsSelected.findIndex(_item => _item.name === item.name)
-		if (item.canHaveDoor) {
-			item.doorType = type
-		}
-		itemsSelected[idx] = item
-		onChange(itemsSelected)
 	}
 
 	handleCheckDoor(item) {

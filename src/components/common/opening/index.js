@@ -1,18 +1,27 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
+import {withStyles} from '@material-ui/core/styles'
 
 import OpeningWindow from './window'
 import OpeningDoor from './door'
 
+const styles = {
+	gridDoor: {
+		marginTop: '3px'
+	}
+}
+
 class Opening extends Component {
 	render() {
-		const {doors, windows} = this.props
+		const {classes, door, windows} = this.props
 		return (
 			<div>
 				<Grid container spacing={8}>
-					<Grid item xs={6}>
-						<OpeningDoor doors={doors} onChange={(doors) => this.handleChangeDoors(doors)}/>
+					<Grid item xs={6} classes={{root: classes.gridDoor}}>
+						<div className={classes.gridDoor}>
+							<OpeningDoor door={door} onChange={(doors) => this.handleChangeDoor(door)}/>
+						</div>
 					</Grid>
 					<Grid item xs={6}>
 						<OpeningWindow windows={windows} onChange={(windows) => this.handleChangeWindows(windows)}/>
@@ -22,9 +31,9 @@ class Opening extends Component {
 		)
 	}
 
-	handleChangeDoors(doors) {
-		const {onChangeDoors} = this.props
-		onChangeDoors(doors)
+	handleChangeDoor(door) {
+		const {onChangeDoor} = this.props
+		onChangeDoor(door)
 	}
 
 	handleChangeWindows(windows) {
@@ -34,9 +43,9 @@ class Opening extends Component {
 }
 
 Opening.propTypes = {
-	doors: PropTypes.array.isRequired,
+	door: PropTypes.object.isRequired,
 	windows: PropTypes.array.isRequired,
-	onChangeDoors: PropTypes.func.isRequired,
+	onChangeDoor: PropTypes.func.isRequired,
 	onChangeWindows: PropTypes.func.isRequired
 }
-export default Opening
+export default withStyles(styles)(Opening)

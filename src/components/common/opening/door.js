@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Typography from "@material-ui/core/Typography/Typography";
 import Radio from '@material-ui/core/Radio';
-import AddIcon from '@material-ui/icons/AddCircle';
-import RemoveIcon from '@material-ui/icons/RemoveCircle';
 import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
@@ -14,14 +12,19 @@ const styles = {
 	doors: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		backgroundColor: 'red'
+	},
+
+	radio: {
+		padding: '0 10px'
 	},
 
 	doorsSelector: {
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginLeft: '50px',
+		marginLeft: '40px',
 		'& .value': {
 			margin: '0 10px'
 		},
@@ -51,29 +54,52 @@ const styles = {
 
 class OpeningDoor extends Component {
 	render() {
+		const {classes, door} = this.props
 		return (
-			<div>
-				{this.renderDoorsSelector()}
-				{this.renderDoor()}
+			<div className={classes.door}>
+				<Typography>
+					Porte d'entrée
+				</Typography>
+				<div className={classes.doorSelector}>
+					<Radio
+						classes={{root: classes.radio}}
+						checked={door.type === 'arch'}
+						onChange={() => this.handleChangeDoorType('arch')}
+					/>
+					<Typography classes={{root: classes.typeLabel}}
+											onClick={() => this.handleChangeDoorType('arch')}>Cintrée</Typography>
+					<Radio
+						classes={{root: classes.radio}}
+						checked={door.type === 'rectangular'}
+						onChange={() => this.handleChangeDoorType('rectangular')}
+					/>
+					<Typography classes={{root: classes.typeLabel}}
+											onClick={() => this.handleChangeDoorType('rectangular')}>Rectangulaire</Typography>
+				</div>
 			</div>
 		)
 	}
 
 	renderDoorsSelector() {
-		const {classes, doors} = this.props
+		const {classes, door} = this.props
 		return (
-			<div className={classes.doors}>
+			<div className={classes.door}>
 				<Typography>
-					Nombre de portes
+					Porte d'entrée
 				</Typography>
-				<div className={classes.doorsSelector}>
-					<div className={"icon"} onClick={() => this.handleAddDoor(-1)}>
-						<RemoveIcon color={"secondary"} onClick={() => console.log('clic')}/>
-					</div>
-					<div className={"value"}>{doors.length}</div>
-					<div className={"icon"} onClick={() => this.handleAddDoor(1)}>
-						<AddIcon color={"primary"}/>
-					</div>
+				<div className={classes.doorSelector}>
+					<Radio
+						checked={door.type === 'arch'}
+						onChange={() => this.handleChangeDoorType('arch')}
+					/>
+					<Typography classes={{root: classes.typeLabel}}
+											onClick={() => this.handleChangeDoorType('arch')}>Cintrée</Typography>
+					<Radio
+						checked={door.type === 'rectangular'}
+						onChange={() => this.handleChangeDoorType('rectangular')}
+					/>
+					<Typography classes={{root: classes.typeLabel}}
+											onClick={() => this.handleChangeDoorType('rectangular')}>Rectangulaire</Typography>
 				</div>
 			</div>
 		)
@@ -104,30 +130,15 @@ class OpeningDoor extends Component {
 		})
 	}
 
-	handleAddDoor(inc) {
-		const {onChange} = this.props
-		const doors = this.props.doors.slice()
-		if (doors.length === 0 && inc < 0) {
-			return
-		}
-		if (inc === -1) {
-			doors.shift()
-		} else {
-			doors.push({type: 'arch'})
-		}
-		onChange(doors)
-	}
-
-	handleChangeDoorType(idx, type) {
-		const {onChange} = this.props
-		const doors = this.props.doors.slice()
-		doors[idx].type = type
-		onChange(doors)
+	handleChangeDoorType(type) {
+		const {onChange, door} = this.props
+		door.type = type
+		onChange(door)
 	}
 }
 
 OpeningDoor.propTypes = {
-	doors: PropTypes.array.isRequired,
+	door: PropTypes.object.isRequired,
 	onChange: PropTypes.func.isRequired
 }
 export default withStyles(styles)(OpeningDoor)

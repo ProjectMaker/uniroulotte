@@ -44,7 +44,9 @@ class Home extends Component {
 				longueur: 4
 			},
 			equipments: [],
-			doors: [],
+			door: {
+				type: 'arch'
+			},
 			windows: [],
 			roofing: {
 				name: 'Zinc à joint debout'
@@ -54,7 +56,7 @@ class Home extends Component {
 
 	render() {
 		const {classes} = this.props
-		const {area, equipments, doors, windows, roofing, expanded} = this.state
+		const {area, equipments, door, windows, roofing, expanded} = this.state
 		return (
 			<div>
 				<NavBar/>
@@ -93,8 +95,8 @@ class Home extends Component {
 								<ExpansionPanelDetails>
 									<div style={{width: '100%'}}>
 										<Opening
-											doors={doors}
-											onChangeDoors={(doors) => this.setState({doors})}
+											door={door}
+											onChangeDoor={(door) => this.setState({door})}
 											windows={windows}
 											onChangeWindows={(windows) => this.setState({windows})}/>
 									</div>
@@ -119,7 +121,7 @@ class Home extends Component {
 								<Basket
 									area={area}
 									equipments={equipments}
-									doors={doors}
+									doors={[]}
 									windows={windows}
 									roofing={roofing} />
 							</div>
