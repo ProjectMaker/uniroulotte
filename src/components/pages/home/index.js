@@ -16,6 +16,7 @@ import Basket from '../../../components/common/basket'
 
 const equipmentsAvailable = [
 	{name: 'Chambre / Pièce de vie'},
+	{name: 'Chambre séparée'},
 	{name: 'Salle de bain'},
 	{name: 'Cuisine'},
 	{name: 'Balcon'}
