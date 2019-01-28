@@ -98,21 +98,18 @@ class Basket extends Component {
 		const shutterArchs = archs.filter(window => window.shutter)
 		const rectangulars = windows.filter(window => window.type === 'rectangular')
 		const shutterRectangulars = rectangulars.filter(window => window.shutter)
+		let labelArchs = `${archs.length} fenêtre(s) cintrée(s)`
+		labelArchs += shutterArchs.length ? ` avec ${shutterArchs.length} volet(s)` : ''
+		let labelRectangulars = `${archs.length} fenêtre(s) rectangulaire(s)`
+		labelRectangulars += shutterRectangulars.length ? ` avec ${shutterRectangulars.length} volet(s)` : ''
 		const result = []
 		if (archs.length) {
-			result.push(<Typography key={"basket-window-arch"}>{archs.length} fenêtre(s) cintrée(s)</Typography>)
-		}
-		if (shutterArchs.length) {
-			result.push(<Typography key={"basket-shutter-arch"}>{shutterArchs.length} volet(s) cintrée(s)</Typography>)
+			result.push(<Typography key={"basket-window-arch"}>{labelArchs}</Typography>)
 		}
 		if (rectangulars.length) {
-			result.push(<Typography key={"basket-window-rectangular"}>{rectangulars.length} fenêtre(s)
-				rectangulaire(s)</Typography>)
+			result.push(<Typography key={"basket-window-rectangular"}>{labelRectangulars}</Typography>)
 		}
-		if (shutterRectangulars.length) {
-			result.push(<Typography key={"basket-shutter-rectangular"}>{shutterRectangulars.length} volet(s)
-				rectangulaire(s)</Typography>)
-		}
+
 		return result
 	}
 }
