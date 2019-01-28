@@ -141,7 +141,6 @@ class OpeningWindow extends Component {
 		const {onChange} = this.props
 		const windows = this.props.windows.slice()
 		windows[idx].type = type
-		console.log(windows)
 		onChange(windows)
 	}
 

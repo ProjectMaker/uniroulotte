@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
 
 import Slider from '../slider'
 
@@ -9,9 +8,9 @@ class Surface extends Component {
 		const {area: {largeur, longueur}} = this.props
 		return (
 			<div>
-				<Slider min={2} max={3} step={0.01} value={largeur} unit={'m'} label={"Largeur"}
+				<Slider min={2} max={3} step={0.1} value={largeur} unit={'m'} label={"Largeur"}
 								onChange={(value) => this.handleChangeLargeur(value)}/>
-				<Slider min={4} max={9} step={0.01} value={longueur} unit={'m'} label={"Longueur"}
+				<Slider min={4} max={9} step={0.1} value={longueur} unit={'m'} label={"Longueur"}
 								onChange={(value) => this.handleChangeLongueur(value)}/>
 			</div>
 		)

@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Typography from "@material-ui/core/Typography/Typography";
 import Grid from '@material-ui/core/Grid'
 
 import OpeningWindow from './window'
@@ -11,7 +10,7 @@ class Opening extends Component {
 		const {doors, windows} = this.props
 		return (
 			<div>
-				<Grid container spacing={10}>
+				<Grid container spacing={8}>
 					<Grid item xs={6}>
 						<OpeningDoor doors={doors} onChange={(doors) => this.handleChangeDoors(doors)}/>
 					</Grid>

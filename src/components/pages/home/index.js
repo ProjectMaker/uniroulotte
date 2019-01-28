@@ -11,13 +11,20 @@ import NavBar from '../../../components/common/nav-bar'
 import Surface from '../../../components/common/surface'
 import Equipments from '../../../components/common/equipment'
 import Opening from '../../../components/common/opening'
+import Roofing from '../../../components/common/roofing'
 import Basket from '../../../components/common/basket'
 
 const equipmentsAvailable = [
-	{name: 'Chambre'},
+	{name: 'Chambre / Pièce de vie'},
 	{name: 'Salle de bain'},
 	{name: 'Cuisine'},
 	{name: 'Balcon'}
+]
+
+const roofingAvailable = [
+	{name: 'Zinc à joint debout'},
+	{name: 'Tôles cintrées type bac acier'},
+	{name: 'Tôles plates galvanisées'}
 ]
 
 const styles = {
@@ -37,18 +44,21 @@ class Home extends Component {
 			},
 			equipments: [],
 			doors: [],
-			windows: []
+			windows: [],
+			roofing: {
+				name: 'Zinc à joint debout'
+			}
 		}
 	}
 
 	render() {
 		const {classes} = this.props
-		const {area, equipments, doors, windows, expanded} = this.state
+		const {area, equipments, doors, windows, roofing, expanded} = this.state
 		return (
 			<div>
 				<NavBar/>
 				<div className={classes.root}>
-					<Grid container spacing={100}>
+					<Grid container spacing={24}>
 						<Grid item xs={9}>
 							<ExpansionPanel expanded={expanded === 'area'} onChange={() => this.handleExpandPanel('area')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
@@ -64,7 +74,7 @@ class Home extends Component {
 							</ExpansionPanel>
 							<ExpansionPanel expanded={expanded === 'equipment'} onChange={() => this.handleExpandPanel('equipment')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-									<Typography>Equipements</Typography>
+									<Typography>Equipements / Aménagements</Typography>
 								</ExpansionPanelSummary>
 								<ExpansionPanelDetails>
 									<div style={{width: '100%'}}>
@@ -89,14 +99,28 @@ class Home extends Component {
 									</div>
 								</ExpansionPanelDetails>
 							</ExpansionPanel>
+							<ExpansionPanel expanded={expanded === 'roofing'} onChange={() => this.handleExpandPanel('roofing')}>
+								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+									<Typography>Toiture / Couverture</Typography>
+								</ExpansionPanelSummary>
+								<ExpansionPanelDetails>
+									<div style={{width: '100%'}}>
+										<Roofing
+											items={roofingAvailable}
+											itemSelected={roofing}
+											onChange={(item) => this.setState({roofing: item}) }/>
+									</div>
+								</ExpansionPanelDetails>
+							</ExpansionPanel>
 						</Grid>
 						<Grid item xs={3}>
-							<div style={{marginLeft: '25px'}}>
+							<div>
 								<Basket
 									area={area}
 									equipments={equipments}
 									doors={doors}
-									windows={windows}/>
+									windows={windows}
+									roofing={roofing} />
 							</div>
 						</Grid>
 					</Grid>

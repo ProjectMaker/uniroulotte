@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Typography from "@material-ui/core/Typography/Typography";
+import Typography from "@material-ui/core/Typography/Typography"
 import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
@@ -15,7 +15,7 @@ const styles = {
 
 class Basket extends Component {
 	render() {
-		const {classes, equipments, windows, doors} = this.props
+		const {classes, equipments, windows, doors, roofing} = this.props
 		return (
 			<div>
 				<Typography variant={"h6"} classes={{root: classes.title}}>Superficie</Typography>
@@ -33,6 +33,10 @@ class Basket extends Component {
 					{doors.length || windows.length ? this.renderOpening() :
 						<Typography>Aucune ouverture</Typography>
 					}
+				</div>
+				<Typography variant={"h6"} classes={{root: classes.title}}>Toiture / Couverture</Typography>
+				<div className={classes.detail}>
+					<Typography>{roofing.name}</Typography>
 				</div>
 			</div>
 		)
@@ -117,6 +121,7 @@ Basket.propTypes = {
 	area: PropTypes.object.isRequired,
 	equipments: PropTypes.array.isRequired,
 	doors: PropTypes.array.isRequired,
-	windows: PropTypes.array.isRequired
+	windows: PropTypes.array.isRequired,
+	roofing: PropTypes.object.isRequired
 }
 export default withStyles(styles)(Basket)
