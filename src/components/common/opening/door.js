@@ -1,39 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Typography from "@material-ui/core/Typography/Typography";
-import Radio from '@material-ui/core/Radio';
+import Typography from "@material-ui/core/Typography/Typography"
 import {withStyles} from '@material-ui/core/styles'
 
+import RadioGroup from '../form/radio-group'
+
 const styles = {
-	wrapper: {
-		padding: '22px 10px',
-	},
-
-	doors: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		backgroundColor: 'red'
-	},
-
-	radio: {
-		padding: '0 10px'
-	},
-
-	doorsSelector: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginLeft: '40px',
-		'& .value': {
-			margin: '0 10px'
-		},
-
-		'& .icon': {
-			cursor: 'pointer'
-		}
-	},
-
 	door: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -41,99 +13,60 @@ const styles = {
 	},
 
 	doorSelector: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
 		marginLeft: '104px',
-	},
-
-	typeLabel: {
-		cursor: 'pointer'
 	}
 }
 
+const radioDoors = [
+	{
+		label: 'Pleine',
+		value: 'full'
+	}, {
+		label: 'Semi vitrée',
+		value: 'semiGlazed'
+	}, {
+		label: 'Grand jour',
+		value: 'glazed'
+	}
+]
+
 class OpeningDoor extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			itemChecked: radioDoors[0]
+		}
+	}
+
+	componentWillMount() {
+		this.setState({itemChecked: radioDoors.find(door => door.value === this.props.door.type)})
+	}
+
 	render() {
-		const {classes, door} = this.props
+		console.log('render')
+		const {classes} = this.props
+		const {itemChecked} = this.state
 		return (
 			<div className={classes.door}>
 				<Typography>
 					Porte d'entrée
 				</Typography>
 				<div className={classes.doorSelector}>
-					<Radio
-						classes={{root: classes.radio}}
-						checked={door.type === 'arch'}
-						onChange={() => this.handleChangeDoorType('arch')}
-					/>
-					<Typography classes={{root: classes.typeLabel}}
-											onClick={() => this.handleChangeDoorType('arch')}>Cintrée</Typography>
-					<Radio
-						classes={{root: classes.radio}}
-						checked={door.type === 'rectangular'}
-						onChange={() => this.handleChangeDoorType('rectangular')}
-					/>
-					<Typography classes={{root: classes.typeLabel}}
-											onClick={() => this.handleChangeDoorType('rectangular')}>Rectangulaire</Typography>
+					<RadioGroup key="radio-group-door"
+											items={radioDoors}
+											itemChecked={itemChecked}
+											onClick={(item) => this.handleChangeDoorType(item.value)}/>
 				</div>
 			</div>
 		)
-	}
-
-	renderDoorsSelector() {
-		const {classes, door} = this.props
-		return (
-			<div className={classes.door}>
-				<Typography>
-					Porte d'entrée
-				</Typography>
-				<div className={classes.doorSelector}>
-					<Radio
-						checked={door.type === 'arch'}
-						onChange={() => this.handleChangeDoorType('arch')}
-					/>
-					<Typography classes={{root: classes.typeLabel}}
-											onClick={() => this.handleChangeDoorType('arch')}>Cintrée</Typography>
-					<Radio
-						checked={door.type === 'rectangular'}
-						onChange={() => this.handleChangeDoorType('rectangular')}
-					/>
-					<Typography classes={{root: classes.typeLabel}}
-											onClick={() => this.handleChangeDoorType('rectangular')}>Rectangulaire</Typography>
-				</div>
-			</div>
-		)
-	}
-
-	renderDoor() {
-		const {doors, classes} = this.props
-		return doors.map((door, idx) => {
-			return (
-				<div key={`door-${idx}`} className={classes.door}>
-					<Typography>Porte {idx + 1}</Typography>
-					<div className={classes.doorSelector}>
-						<Radio
-							checked={door.type === 'arch'}
-							onChange={() => this.handleChangeDoorType(idx, 'arch')}
-						/>
-						<Typography classes={{root: classes.typeLabel}}
-												onClick={() => this.handleChangeDoorType(idx, 'arch')}>Cintrée</Typography>
-						<Radio
-							checked={door.type === 'rectangular'}
-							onChange={() => this.handleChangeDoorType(idx, 'rectangular')}
-						/>
-						<Typography classes={{root: classes.typeLabel}}
-												onClick={() => this.handleChangeDoorType(idx, 'rectangular')}>Rectangulaire</Typography>
-					</div>
-				</div>
-			)
-		})
 	}
 
 	handleChangeDoorType(type) {
 		const {onChange, door} = this.props
 		door.type = type
 		onChange(door)
+		this.setState({itemChecked: radioDoors.find(door => door.value === type)})
 	}
 }
 

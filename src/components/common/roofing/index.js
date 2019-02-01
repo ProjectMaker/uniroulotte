@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Radio from '@material-ui/core/Radio';
 import Typography from "@material-ui/core/Typography/Typography";
 import { withStyles } from '@material-ui/core/styles';
+
+import RadioGroup from '../form/radio-group'
 
 const styles = theme => ({
 	item: {
@@ -22,21 +23,10 @@ class Roofing extends Component {
 		const {items, itemSelected, classes} = this.props
 		return (
 			<div>
-				<div>
-					{items.map((item, idx) => (
-						<div key={`item-${idx}`} className={classes.item}>
-							<Radio
-								checked={itemSelected.name === item.name ? true : false}
-								onChange={() => this.handleCheck(item)}
-							/>
-							<div onClick={() => this.handleCheck(item)}>
-								<Typography>
-									{item.name}
-								</Typography>
-							</div>
-						</div>
-					))}
-				</div>
+				<RadioGroup items={items}
+										itemChecked={itemSelected}
+										direction={'vertical'}
+										onClick={(item) => this.handleCheck(item)} />
 			</div>
 		)
 	}

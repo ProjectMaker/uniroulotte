@@ -15,17 +15,22 @@ import Roofing from '../../../components/common/roofing'
 import Basket from '../../../components/common/basket'
 
 const equipmentsAvailable = [
-	{name: 'Chambre / Pièce de vie'},
-	{name: 'Chambre séparée', canHaveDoor: true, door: false},
-	{name: 'Salle de bain', canHaveDoor: true, door: false},
-	{name: 'Cuisine', canHaveDoor: true, door: false},
-	{name: 'Balcon'}
+	{label: 'Chambre / Pièce de vie', value: 'bedroom'},
+	{label: 'Chambre séparée', value: 'bedroomSepareted', canHaveDoor: true, door: false},
+	{label: 'Salle de bain', value: 'bathroom', canHaveDoor: true, door: false},
+	{label: 'Cuisine', value: 'kitchen', canHaveDoor: true, door: false},
+	{label: 'Balcon', value: 'balcony'}
 ]
 
 const roofingAvailable = [
-	{name: 'Zinc à joint debout'},
-	{name: 'Tôles cintrées type bac acier'},
-	{name: 'Tôles plates galvanisées'}
+	{label: 'Zinc à joint debout', value: 'zinc'},
+	{label: 'Tôles cintrées type bac acier', value: 'tolecintree'},
+	{label: 'Tôles plates galvanisées', value: 'tolegalva'}
+]
+
+const windowsAvailable = [
+	{label: 'Cintrée', value: 'arch'},
+	{label: 'Rectangulaire', value: 'rectangular'}
 ]
 
 const styles = {
@@ -45,11 +50,12 @@ class Home extends Component {
 			},
 			equipments: [],
 			door: {
-				type: 'arch'
+				type: 'full'
 			},
 			windows: [],
 			roofing: {
-				name: 'Zinc à joint debout'
+				label: 'Zinc à joint debout',
+				value: 'zinc'
 			}
 		}
 	}
@@ -98,6 +104,7 @@ class Home extends Component {
 											door={door}
 											onChangeDoor={(door) => this.setState({door})}
 											windows={windows}
+											windowsAvailable={windowsAvailable}
 											onChangeWindows={(windows) => this.setState({windows})}/>
 									</div>
 								</ExpansionPanelDetails>

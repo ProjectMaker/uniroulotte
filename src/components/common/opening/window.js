@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Typography from "@material-ui/core/Typography/Typography";
-import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
 import AddIcon from '@material-ui/icons/AddCircle';
 import RemoveIcon from '@material-ui/icons/RemoveCircle';
 import {withStyles} from '@material-ui/core/styles'
+
+import RadioGroup from '../form/radio-group'
+import Checkbox from '../form/checkbox'
 
 const styles = {
 	wrapper: {
@@ -15,45 +16,38 @@ const styles = {
 	windows: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center'
-	},
-
-	windowsSelector: {
-		display: 'flex',
-		flexDirection: 'row',
 		alignItems: 'center',
-		marginLeft: '50px',
-		'& .value': {
-			margin: '0 10px'
-		},
 
-		'& .icon': {
-			cursor: 'pointer'
+		'& .formGroup': {
+			display: 'flex',
+			flexDirection: 'row',
+			alignItems: 'center',
+			marginLeft: '67px',
+
+			'& .value': {
+				margin: '0 10px'
+			},
+
+			'& .icon': {
+				height: '24px',
+				cursor: 'pointer'
+			}
 		}
 	},
-
 	window: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'flex-start'
-	},
+		alignItems: 'flex-start',
+		marginTop: '20px',
+		marginBottom: '20px',
 
-	windowSelectorWrapper: {
-		marginLeft: '102px',
-	},
+		'& .shutter': {
+			marginTop: '5px'
+		},
 
-	windowSelector: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center'
-	},
-
-	windowLabel: {
-		marginTop: '12px'
-	},
-
-	typeLabel: {
-		cursor: 'pointer'
+		'& .formGroup': {
+			marginLeft: '130px'
+		}
 	}
 }
 
@@ -74,7 +68,7 @@ class OpeningWindow extends Component {
 				<Typography>
 					Nombre de fenêtres
 				</Typography>
-				<div className={classes.windowsSelector}>
+				<div className="formGroup">
 					<div className={"icon"} onClick={() => this.handleAddWindow(-1)}>
 						<RemoveIcon color={"secondary"} onClick={() => console.log('clic')}/>
 					</div>
@@ -88,34 +82,21 @@ class OpeningWindow extends Component {
 	}
 
 	renderWindow() {
-		const {windows, classes} = this.props
+		const {windows, windowsAvailable, classes} = this.props
 		return windows.map((window, idx) => {
+			const itemChecked = windowsAvailable.find(windowAvailable => window.type === windowAvailable.value)
 			return (
 				<div key={`door-${idx}`} className={classes.window}>
-					<Typography classes={{root: classes.windowLabel}}>Fenêtre {idx + 1}</Typography>
-					<div className={classes.windowSelectorWrapper}>
-						<div className={classes.windowSelector}>
-							<Radio checked={window.type === 'arch'}
-										 onChange={() => this.handleChangeWindowType(idx, 'arch')}
-							/>
-							<Typography classes={{root: classes.typeLabel}}
-													onClick={() => this.handleChangeWindowType(idx, 'arch')}>Cintrée</Typography>
-							<Radio checked={window.type === 'rectangular'}
-										 onChange={() => this.handleChangeWindowType(idx, 'rectangular')}
-							/>
-							<Typography classes={{root: classes.typeLabel}}
-													onClick={() => this.handleChangeWindowType(idx, 'rectangular')}>Rectangulaire</Typography>
-						</div>
-						<div className={classes.windowSelector}>
+					<Typography>Fenêtre {idx + 1}</Typography>
+					<div className="formGroup">
+						<RadioGroup items={windowsAvailable}
+												itemChecked={itemChecked}
+												onClick={(item) => this.handleChangeWindowType(idx, item.value)}/>
+						<div className="shutter">
 							<Checkbox checked={window.shutter}
-												tabIndex={-1}
-												disableRipple
-												onChange={() => this.handleChangeShutter(idx)}
+												label="Avec volet"
+												onClick={() => this.handleChangeShutter(idx)}
 							/>
-							<Typography classes={{root: classes.typeLabel}}
-													onClick={() => this.handleChangeShutter(idx)}>
-								Avec volet
-							</Typography>
 						</div>
 					</div>
 				</div>
@@ -154,6 +135,7 @@ class OpeningWindow extends Component {
 
 OpeningWindow.propTypes = {
 	windows: PropTypes.array.isRequired,
+	windowsAvailable: PropTypes.array.isRequired,
 	onChange: PropTypes.func.isRequired
 }
 export default withStyles(styles)(OpeningWindow)

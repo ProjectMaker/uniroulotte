@@ -7,26 +7,25 @@ import OpeningWindow from './window'
 import OpeningDoor from './door'
 
 const styles = {
-	gridDoor: {
+	door: {
 		marginTop: '3px'
+	},
+	windows: {
+		marginTop: '20px'
 	}
 }
 
 class Opening extends Component {
 	render() {
-		const {classes, door, windows} = this.props
+		const {classes, door, windows, windowsAvailable} = this.props
 		return (
 			<div>
-				<Grid container spacing={8}>
-					<Grid item xs={6} classes={{root: classes.gridDoor}}>
-						<div className={classes.gridDoor}>
-							<OpeningDoor door={door} onChange={(doors) => this.handleChangeDoor(door)}/>
-						</div>
-					</Grid>
-					<Grid item xs={6}>
-						<OpeningWindow windows={windows} onChange={(windows) => this.handleChangeWindows(windows)}/>
-					</Grid>
-				</Grid>
+				<div className={classes.door}>
+					<OpeningDoor door={door} onChange={(door) => this.handleChangeDoor(door)}/>
+				</div>
+				<div className={classes.windows}>
+					<OpeningWindow windows={windows} windowsAvailable={windowsAvailable} onChange={(windows) => this.handleChangeWindows(windows)}/>
+				</div>
 			</div>
 		)
 	}
@@ -45,6 +44,7 @@ class Opening extends Component {
 Opening.propTypes = {
 	door: PropTypes.object.isRequired,
 	windows: PropTypes.array.isRequired,
+	windowsAvailable: PropTypes.array.isRequired,
 	onChangeDoor: PropTypes.func.isRequired,
 	onChangeWindows: PropTypes.func.isRequired
 }
