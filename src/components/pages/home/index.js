@@ -13,6 +13,7 @@ import Equipments from '../../../components/common/equipment'
 import Opening from '../../../components/common/opening'
 import Roofing from '../../../components/common/roofing'
 import Basket from '../../../components/common/basket'
+import Validation from '../../../components/common/validation'
 
 const equipmentsAvailable = [
 	{label: 'Chambre / Pièce de vie', value: 'bedroom'},
@@ -36,6 +37,9 @@ const windowsAvailable = [
 const styles = {
 	root: {
 		margin: '20px'
+	},
+	validation: {
+		marginTop: '40px'
 	}
 }
 
@@ -68,7 +72,7 @@ class Home extends Component {
 				<NavBar/>
 				<div className={classes.root}>
 					<Grid container spacing={24}>
-						<Grid item xs={9}>
+						<Grid item xs={6}>
 							<ExpansionPanel expanded={expanded === 'area'} onChange={() => this.handleExpandPanel('area')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
 									<Typography>Superficie</Typography>
@@ -122,16 +126,17 @@ class Home extends Component {
 									</div>
 								</ExpansionPanelDetails>
 							</ExpansionPanel>
-						</Grid>
-						<Grid item xs={3}>
-							<div>
-								<Basket
-									area={area}
-									equipments={equipments}
-									doors={[]}
-									windows={windows}
-									roofing={roofing} />
+							<div className={classes.validation}>
+								<Validation />
 							</div>
+						</Grid>
+						<Grid item xs={6}>
+							<Basket
+								area={area}
+								equipments={equipments}
+								doors={[]}
+								windows={windows}
+								roofing={roofing} />
 						</Grid>
 					</Grid>
 				</div>

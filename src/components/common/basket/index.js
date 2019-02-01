@@ -36,7 +36,7 @@ class Basket extends Component {
 				</div>
 				<Typography variant={"h6"} classes={{root: classes.title}}>Toiture / Couverture</Typography>
 				<div className={classes.detail}>
-					<Typography>{roofing.name}</Typography>
+					<Typography>{roofing.label}</Typography>
 				</div>
 			</div>
 		)
@@ -64,7 +64,7 @@ class Basket extends Component {
 		return equipments.map((equipment, idx) => {
 			return (
 				<Typography key={`basket-equipments-${idx}`}>
-					{equipment.name}
+					{`${equipment.label}${equipment.door ? ' avec porte' : ''}`}
 				</Typography>
 			)
 		})
@@ -100,7 +100,7 @@ class Basket extends Component {
 		const shutterRectangulars = rectangulars.filter(window => window.shutter)
 		let labelArchs = `${archs.length} fenêtre(s) cintrée(s)`
 		labelArchs += shutterArchs.length ? ` avec ${shutterArchs.length} volet(s)` : ''
-		let labelRectangulars = `${archs.length} fenêtre(s) rectangulaire(s)`
+		let labelRectangulars = `${rectangulars.length} fenêtre(s) rectangulaire(s)`
 		labelRectangulars += shutterRectangulars.length ? ` avec ${shutterRectangulars.length} volet(s)` : ''
 		const result = []
 		if (archs.length) {

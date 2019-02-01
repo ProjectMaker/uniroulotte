@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import MaterialRadio from '@material-ui/core/Radio'
 import Typography from "@material-ui/core/Typography/Typography"
 import {withStyles} from '@material-ui/core/styles'
-import Checkbox from "./checkbox";
 
 const styles = {
 	root: {

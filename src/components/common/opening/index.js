@@ -11,7 +11,7 @@ const styles = {
 		marginTop: '3px'
 	},
 	windows: {
-		marginTop: '20px'
+		marginTop: '30px'
 	}
 }
 

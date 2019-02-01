@@ -44,7 +44,6 @@ class OpeningDoor extends Component {
 	}
 
 	render() {
-		console.log('render')
 		const {classes} = this.props
 		const {itemChecked} = this.state
 		return (
