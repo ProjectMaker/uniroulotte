@@ -134,7 +134,7 @@ class Home extends Component {
 							<Basket
 								area={area}
 								equipments={equipments}
-								doors={[]}
+								door={door}
 								windows={windows}
 								roofing={roofing} />
 						</Grid>

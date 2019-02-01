@@ -12,10 +12,22 @@ const styles = {
 		marginBottom: '30px'
 	}
 }
+const doors = [
+	{
+		label: 'Pleine',
+		value: 'full'
+	}, {
+		label: 'Semi vitrée',
+		value: 'semiGlazed'
+	}, {
+		label: 'Grand jour',
+		value: 'glazed'
+	}
+]
 
 class Basket extends Component {
 	render() {
-		const {classes, equipments, windows, doors, roofing} = this.props
+		const {classes, equipments, door, roofing} = this.props
 		return (
 			<div>
 				<Typography variant={"h6"} classes={{root: classes.title}}>Superficie</Typography>
@@ -30,9 +42,7 @@ class Basket extends Component {
 				</div>
 				<Typography variant={"h6"} classes={{root: classes.title}}>Ouvertures</Typography>
 				<div className={classes.detail}>
-					{doors.length || windows.length ? this.renderOpening() :
-						<Typography>Aucune ouverture</Typography>
-					}
+					<Typography>Porte d'entrée {doors.find(_door => _door.value === door.type).label}</Typography>
 				</div>
 				<Typography variant={"h6"} classes={{root: classes.title}}>Toiture / Couverture</Typography>
 				<div className={classes.detail}>
@@ -117,7 +127,7 @@ class Basket extends Component {
 Basket.propTypes = {
 	area: PropTypes.object.isRequired,
 	equipments: PropTypes.array.isRequired,
-	doors: PropTypes.array.isRequired,
+	door: PropTypes.object.isRequired,
 	windows: PropTypes.array.isRequired,
 	roofing: PropTypes.object.isRequired
 }

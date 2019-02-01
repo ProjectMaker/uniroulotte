@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Typography from "@material-ui/core/Typography/Typography";
 import { withStyles } from '@material-ui/core/styles';
 
 import RadioGroup from '../form/radio-group'
@@ -20,7 +19,7 @@ const styles = theme => ({
 
 class Roofing extends Component {
 	render() {
-		const {items, itemSelected, classes} = this.props
+		const {items, itemSelected} = this.props
 		return (
 			<div>
 				<RadioGroup items={items}
