@@ -43,6 +43,7 @@ class Basket extends Component {
 				<Typography variant={"h6"} classes={{root: classes.title}}>Ouvertures</Typography>
 				<div className={classes.detail}>
 					<Typography>Porte d'entrée {doors.find(_door => _door.value === door.type).label}</Typography>
+					{this.renderWindows()}
 				</div>
 				<Typography variant={"h6"} classes={{root: classes.title}}>Toiture / Couverture</Typography>
 				<div className={classes.detail}>
