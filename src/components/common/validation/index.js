@@ -67,7 +67,7 @@ class Validation extends Component {
 					/>
 				</div>
 				<Button variant="contained" color="primary" className={classes.button}>
-					Envoyer le devis
+					Envoyer la demande de devis
 				</Button>
 			</div>
 		)

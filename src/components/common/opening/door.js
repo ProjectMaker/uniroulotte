@@ -13,7 +13,7 @@ const styles = {
 	},
 
 	doorSelector: {
-		marginLeft: '104px',
+		marginLeft: '154px',
 	}
 }
 

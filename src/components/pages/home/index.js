@@ -13,6 +13,7 @@ import Equipments from '../../../components/common/equipment'
 import Opening from '../../../components/common/opening'
 import Roofing from '../../../components/common/roofing'
 import Basket from '../../../components/common/basket'
+import Simulator from '../../../components/common/basket/simulator'
 import Validation from '../../../components/common/validation'
 
 const equipmentsAvailable = [
@@ -132,6 +133,12 @@ class Home extends Component {
 						</Grid>
 						<Grid item xs={6}>
 							<Basket
+								area={area}
+								equipments={equipments}
+								door={door}
+								windows={windows}
+								roofing={roofing} />
+							<Simulator
 								area={area}
 								equipments={equipments}
 								door={door}

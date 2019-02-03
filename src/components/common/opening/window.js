@@ -22,7 +22,7 @@ const styles = {
 			display: 'flex',
 			flexDirection: 'row',
 			alignItems: 'center',
-			marginLeft: '67px',
+			marginLeft: '48px',
 
 			'& .value': {
 				margin: '0 10px'
@@ -46,7 +46,7 @@ const styles = {
 		},
 
 		'& .formGroup': {
-			marginLeft: '130px'
+			marginLeft: '181px'
 		}
 	}
 }
@@ -66,7 +66,7 @@ class OpeningWindow extends Component {
 		return (
 			<div className={classes.windows}>
 				<Typography>
-					Nombre de fenêtres
+					Nombre de fenêtre à 2 vantaux
 				</Typography>
 				<div className="formGroup">
 					<div className={"icon"} onClick={() => this.handleAddWindow(-1)}>
@@ -94,7 +94,7 @@ class OpeningWindow extends Component {
 												onClick={(item) => this.handleChangeWindowType(idx, item.value)}/>
 						<div className="shutter">
 							<Checkbox checked={window.shutter}
-												label="Avec volet"
+												label="Avec volets"
 												onClick={() => this.handleChangeShutter(idx)}
 							/>
 						</div>
