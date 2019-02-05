@@ -8,7 +8,16 @@ const styles = theme => ({
 	fields: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		marginTop: '20px'
+		marginTop: '20px',
+		[theme.breakpoints.down('xs')]: {
+			flexDirection: 'column'
+		}
+	},
+
+	field: {
+		[theme.breakpoints.down('xs')]: {
+			marginTop: '10px'
+		}
 	},
 
 	input: {
@@ -33,38 +42,44 @@ class Validation extends Component {
 			<div>
 				<Typography>Veuillez remplir les champs ci-dessous afin de recevoir votre devis</Typography>
 				<div className={classes.fields}>
-					<TextField
-						required
-						id="email"
-						label="Email"
-						type="email"
-						name="email"
-						autoComplete="email"
-						margin="none"
-						variant="outlined"
-						InputProps={{ classes: { input: classes.input } }}
-						InputLabelProps={{ classes: { root: classes.label } }}
-					/>
-					<TextField
-						required
-						id="lastname"
-						label="Nom"
-						name="lastname"
-						margin="none"
-						variant="outlined"
-						InputProps={{ classes: { input: classes.input } }}
-						InputLabelProps={{ classes: { root: classes.label } }}
-					/>
-					<TextField
-						required
-						id="firstname"
-						label="Prénom"
-						name="firtsname"
-						margin="none"
-						variant="outlined"
-						InputProps={{ classes: { input: classes.input } }}
-						InputLabelProps={{ classes: { root: classes.label } }}
-					/>
+					<div className={classes.field}>
+						<TextField
+							required
+							id="email"
+							label="Email"
+							type="email"
+							name="email"
+							autoComplete="email"
+							margin="none"
+							variant="outlined"
+							InputProps={{ classes: { input: classes.input } }}
+							InputLabelProps={{ classes: { root: classes.label } }}
+						/>
+					</div>
+					<div className={classes.field}>
+						<TextField
+							required
+							id="lastname"
+							label="Nom"
+							name="lastname"
+							margin="none"
+							variant="outlined"
+							InputProps={{ classes: { input: classes.input } }}
+							InputLabelProps={{ classes: { root: classes.label } }}
+						/>
+					</div>
+					<div className={classes.field}>
+						<TextField
+							required
+							id="firstname"
+							label="Prénom"
+							name="firtsname"
+							margin="none"
+							variant="outlined"
+							InputProps={{ classes: { input: classes.input } }}
+							InputLabelProps={{ classes: { root: classes.label } }}
+						/>
+					</div>
 				</div>
 				<Button variant="contained" color="primary" className={classes.button}>
 					Envoyer la demande de devis
