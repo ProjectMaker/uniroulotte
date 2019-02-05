@@ -1,21 +1,32 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {compose} from 'recompose'
 import Typography from "@material-ui/core/Typography/Typography"
 import {withStyles} from '@material-ui/core/styles'
+import withWidth from '@material-ui/core/withWidth'
 
 import RadioGroup from '../form/radio-group'
 
-const styles = {
+const styles = theme => ({
 	door: {
 		display: 'flex',
+		alignItems: 'center',
 		flexDirection: 'row',
-		alignItems: 'center'
+		[theme.breakpoints.down('xs')]: {
+			alignItems: 'flex-start',
+			flexDirection: 'column',
+		}
 	},
 
 	doorSelector: {
-		marginLeft: '154px',
+		[theme.breakpoints.up('xs')]: {
+			marginLeft: '154px'
+		},
+		[theme.breakpoints.down('xs')]: {
+			marginLeft: 0
+		}
 	}
-}
+})
 
 const radioDoors = [
 	{
@@ -44,7 +55,7 @@ class OpeningDoor extends Component {
 	}
 
 	render() {
-		const {classes} = this.props
+		const {classes, width} = this.props
 		const {itemChecked} = this.state
 		return (
 			<div className={classes.door}>
@@ -53,6 +64,7 @@ class OpeningDoor extends Component {
 				</Typography>
 				<div className={classes.doorSelector}>
 					<RadioGroup key="radio-group-door"
+											direction={width === 'xs' ? 'vertical' : 'horizontal'}
 											items={radioDoors}
 											itemChecked={itemChecked}
 											onClick={(item) => this.handleChangeDoorType(item.value)}/>
@@ -73,4 +85,8 @@ OpeningDoor.propTypes = {
 	door: PropTypes.object.isRequired,
 	onChange: PropTypes.func.isRequired
 }
-export default withStyles(styles)(OpeningDoor)
+
+export default compose(
+	withWidth(),
+	withStyles(styles)
+)(OpeningDoor)

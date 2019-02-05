@@ -20,6 +20,10 @@ const styles = {
 
 		'& .radio': {
 			marginTop: '20px'
+		},
+
+		'& .radio:first-child': {
+			marginTop: 0
 		}
 	}
 }

@@ -8,7 +8,7 @@ import {withStyles} from '@material-ui/core/styles'
 import RadioGroup from '../form/radio-group'
 import Checkbox from '../form/checkbox'
 
-const styles = {
+const styles = theme => ({
 	wrapper: {
 		padding: '22px 10px',
 	},
@@ -17,13 +17,19 @@ const styles = {
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
+		[theme.breakpoints.down('xs')]: {
+			flexDirection: 'column',
+			alignItems: 'flex-start'
+		},
 
 		'& .formGroup': {
 			display: 'flex',
 			flexDirection: 'row',
 			alignItems: 'center',
 			marginLeft: '48px',
-
+			[theme.breakpoints.down('xs')]: {
+				marginLeft: 0,
+			},
 			'& .value': {
 				margin: '0 10px'
 			},
@@ -40,16 +46,23 @@ const styles = {
 		alignItems: 'flex-start',
 		marginTop: '20px',
 		marginBottom: '20px',
+		[theme.breakpoints.down('xs')]: {
+			flexDirection: 'column',
+			alignItems: 'flex-start'
+		},
 
 		'& .shutter': {
 			marginTop: '5px'
 		},
 
 		'& .formGroup': {
-			marginLeft: '181px'
+			marginLeft: '181px',
+			[theme.breakpoints.down('xs')]: {
+				marginLeft: 0,
+			}
 		}
 	}
-}
+})
 
 class OpeningWindow extends Component {
 	render() {

@@ -6,6 +6,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
 
 import NavBar from '../../../components/common/nav-bar'
 import Surface from '../../../components/common/surface'
@@ -73,7 +74,7 @@ class Home extends Component {
 				<NavBar/>
 				<div className={classes.root}>
 					<Grid container spacing={24}>
-						<Grid item xs={6}>
+						<Grid item xs={12} md={6}>
 							<ExpansionPanel expanded={expanded === 'area'} onChange={() => this.handleExpandPanel('area')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
 									<Typography>Superficie</Typography>
@@ -128,22 +129,26 @@ class Home extends Component {
 								</ExpansionPanelDetails>
 							</ExpansionPanel>
 							<div className={classes.validation}>
-								<Validation />
+								<div style={{width: '100%'}}>
+									<Validation />
+								</div>
 							</div>
 						</Grid>
-						<Grid item xs={6}>
-							<Basket
-								area={area}
-								equipments={equipments}
-								door={door}
-								windows={windows}
-								roofing={roofing} />
-							<Simulator
-								area={area}
-								equipments={equipments}
-								door={door}
-								windows={windows}
-								roofing={roofing} />
+						<Grid item md={6}>
+							<Hidden only={'xs'}>
+								<Basket
+									area={area}
+									equipments={equipments}
+									door={door}
+									windows={windows}
+									roofing={roofing} />
+								<Simulator
+									area={area}
+									equipments={equipments}
+									door={door}
+									windows={windows}
+									roofing={roofing} />
+							</Hidden>
 						</Grid>
 					</Grid>
 				</div>
