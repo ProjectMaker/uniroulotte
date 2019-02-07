@@ -18,24 +18,24 @@ const styles = {
 class Simulator extends Component {
 	render() {
 		const area = this.calculateArea()
-		const interiorDoor = this.calculateInteriorDoor()
 		const roomWater = this.calculateRoomWater()
+		const bedroom = this.calculateBedroom()
 		const window = this.calculateWindow()
 		const entryDoor = this.calculateEntryDoor()
 		const shutter = this.calculateShutter()
 		const balcony = this.calculateBalcony()
 		const roofing = this.calculateRoofing()
-		const total = area + interiorDoor + roomWater + window + entryDoor + shutter + balcony + roofing
+		const total = area + roomWater + window + entryDoor + shutter + balcony + roofing + bedroom
 		return (
 			<div>
-				<Typography>Surface : {area} €</Typography>
-				<Typography>Cloisons intérieures {interiorDoor} €</Typography>
-				<Typography>Pièces d'eau {roomWater} €</Typography>
-				<Typography>Fenêtres {window} €</Typography>
-				<Typography>Porte d'entrée {entryDoor} €</Typography>
-				<Typography>Volets {shutter} €</Typography>
-				<Typography>Balcon {balcony} €</Typography>
-				<Typography>Toiture {roofing} €</Typography>
+				<Typography>Surface : {area.toLocaleString()} €</Typography>
+				{bedroom ? <Typography>Chambre séparée {bedroom.toLocaleString()} €</Typography> : ''}
+				<Typography>Pièces d'eau {roomWater.toLocaleString()} €</Typography>
+				<Typography>Fenêtres {window.toLocaleString()} €</Typography>
+				<Typography>Porte d'entrée {entryDoor.toLocaleString()} €</Typography>
+				<Typography>Volets {shutter.toLocaleString()} €</Typography>
+				<Typography>Balcon {balcony.toLocaleString()} €</Typography>
+				<Typography>Toiture {roofing.toLocaleString()} €</Typography>
 				<br/><br/>
 				<Typography>Total {total.toLocaleString()} €</Typography>
 			</div>
@@ -48,18 +48,16 @@ class Simulator extends Component {
 		return Math.ceil((largeur * longueur) * PRICES['area'])
 	}
 
-	calculateInteriorDoor() {
+	calculateBedroom() {
 		const {equipments} = this.props
-		const nbDoors = equipments.filter(equipment => ['bedroomSepareted','bathroom','kitchen'].includes(equipment.value)).length
-
-		return nbDoors * PRICES['interiorDoor']
+		const nbRooms = equipments.filter(equipment => ['bedroomSepareted'].includes(equipment.value)).length
+		return nbRooms * ( PRICES['room'] + PRICES['interiorDoor'] )
 	}
 
 	calculateRoomWater() {
 		const {equipments} = this.props
 		const nbRooms = equipments.filter(equipment => ['bathroom','kitchen'].includes(equipment.value)).length
-
-		return nbRooms * PRICES['roomWater']
+		return nbRooms * PRICES['room']
 	}
 
 	calculateWindow() {

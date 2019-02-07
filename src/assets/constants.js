@@ -1,7 +1,7 @@
 export const PRICES = {
 	area: 1300,
 	interiorDoor: 2000,
-	roomWater: 5000,
+	room: 5000,
 	window: {
 		arch: 2000,
 		rectangular: 1000
