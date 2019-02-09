@@ -48,9 +48,9 @@ class Home extends Component {
 				<NavBar/>
 				<Grid className={classes.grid}>
 					<Row around={"md"}>
-						<Col xs={12} md={8}>
+						<Col xs={12} md={9}>
 							<Row>
-								<Col xs={12} md={8}>
+								<Col xs={12} md={9}>
 									<Panels
 										area={area}
 										onChangeArea={(area) => this.setState({area})}
@@ -68,7 +68,7 @@ class Home extends Component {
 										</div>
 									</div>
 								</Col>
-								<Col md={4} className={classes.sidebar}>
+								<Col md={3} className={classes.sidebar}>
 									<Sidebar
 										area={area}
 										equipments={equipments}

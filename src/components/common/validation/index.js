@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography/Typography";
 const styles = theme => ({
 	fields: {
 		display: 'flex',
-		justifyContent: 'space-between',
 		marginTop: '20px',
 		[theme.breakpoints.down('xs')]: {
 			flexDirection: 'column'
@@ -15,9 +14,15 @@ const styles = theme => ({
 	},
 
 	field: {
+
+		marginLeft: '10px',
+		"&:first-child": {
+			marginLeft: 0
+		},
 		[theme.breakpoints.down('xs')]: {
 			marginTop: '10px'
 		}
+
 	},
 
 	input: {
@@ -37,14 +42,58 @@ const styles = theme => ({
 })
 
 class Validation extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			email: '',
+			emailError: false,
+			firstname: '',
+			firstnameError: false,
+			lastname: '',
+			lastnameError: true
+		}
+	}
+
 	render () {
 		const {classes} = this.props
+		const {emailError, lastnameError, firstnameError} = this.state
 		return (
 			<div>
 				<Typography>Veuillez remplir les champs ci-dessous afin de recevoir votre devis</Typography>
 				<div className={classes.fields}>
 					<div className={classes.field}>
 						<TextField
+							error={lastnameError}
+							required
+							id="lastname"
+							label="Nom"
+							name="lastname"
+							margin="none"
+							variant="outlined"
+							onChange={(evt) => this.setState({lastname: evt.target.value})}
+							InputProps={{ classes: { input: classes.input } }}
+							InputLabelProps={{ classes: { root: classes.label } }}
+						/>
+					</div>
+					<div className={classes.field}>
+						<TextField
+							error={firstnameError}
+							required
+							id="firstname"
+							label="Prénom"
+							name="firtsname"
+							margin="none"
+							variant="outlined"
+							onChange={(evt) => this.setState({firstname: evt.target.value})}
+							InputProps={{ classes: { input: classes.input } }}
+							InputLabelProps={{ classes: { root: classes.label } }}
+						/>
+					</div>
+				</div>
+				<div className={classes.fields}>
+					<div className={classes.field}>
+						<TextField
+							error={emailError}
 							required
 							id="email"
 							label="Email"
@@ -53,40 +102,37 @@ class Validation extends Component {
 							autoComplete="email"
 							margin="none"
 							variant="outlined"
+							onChange={(evt) => this.setState({email: evt.target.value})}
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
 					</div>
 					<div className={classes.field}>
 						<TextField
+							error={emailError}
 							required
-							id="lastname"
-							label="Nom"
-							name="lastname"
+							id="emailConfirm"
+							label="Confirmation email"
+							type="email"
+							name="emailConfirm"
+							autoComplete="email"
 							margin="none"
 							variant="outlined"
-							InputProps={{ classes: { input: classes.input } }}
-							InputLabelProps={{ classes: { root: classes.label } }}
-						/>
-					</div>
-					<div className={classes.field}>
-						<TextField
-							required
-							id="firstname"
-							label="Prénom"
-							name="firtsname"
-							margin="none"
-							variant="outlined"
+							onChange={(evt) => this.setState({email: evt.target.value})}
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
 					</div>
 				</div>
-				<Button variant="contained" color="primary" className={classes.button}>
+				<Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
 					Envoyer la demande de devis
 				</Button>
 			</div>
 		)
+	}
+
+	handleValid() {
+		console.log('handleValid')
 	}
 }
 
