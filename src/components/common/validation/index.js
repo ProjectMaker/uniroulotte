@@ -20,7 +20,8 @@ const styles = theme => ({
 			marginLeft: 0
 		},
 		[theme.breakpoints.down('xs')]: {
-			marginTop: '10px'
+			marginTop: '10px',
+			marginLeft: 0
 		}
 
 	},
@@ -45,46 +46,56 @@ class Validation extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			email: '',
-			emailError: false,
-			firstname: '',
-			firstnameError: false,
-			lastname: '',
-			lastnameError: true
+			email: {
+				value: '',
+				error: false
+			},
+			emailConfirm: {
+				value: '',
+				error: false
+			},
+			firstname: {
+				value: '',
+				error: false
+			},
+			lastname: {
+				value: '',
+				error: false
+			}
 		}
 	}
 
 	render () {
 		const {classes} = this.props
-		const {emailError, lastnameError, firstnameError} = this.state
+		const {email, lastname, firstname} = this.state
 		return (
 			<div>
 				<Typography>Veuillez remplir les champs ci-dessous afin de recevoir votre devis</Typography>
 				<div className={classes.fields}>
 					<div className={classes.field}>
 						<TextField
-							error={lastnameError}
+							error={!!lastname.error}
 							required
 							id="lastname"
 							label="Nom"
 							name="lastname"
 							margin="none"
 							variant="outlined"
-							onChange={(evt) => this.setState({lastname: evt.target.value})}
+							onChange={(evt) => this.setState({lastname: {value: evt.target.value}})}
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
 					</div>
 					<div className={classes.field}>
 						<TextField
-							error={firstnameError}
+							error={!!firstname.error}
 							required
 							id="firstname"
 							label="Prénom"
 							name="firtsname"
 							margin="none"
 							variant="outlined"
-							onChange={(evt) => this.setState({firstname: evt.target.value})}
+							onChange={(evt) => this.setState({firstname: {value: evt.target.value}})}
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
@@ -93,7 +104,7 @@ class Validation extends Component {
 				<div className={classes.fields}>
 					<div className={classes.field}>
 						<TextField
-							error={emailError}
+							error={!!email.error}
 							required
 							id="email"
 							label="Email"
@@ -102,14 +113,13 @@ class Validation extends Component {
 							autoComplete="email"
 							margin="none"
 							variant="outlined"
-							onChange={(evt) => this.setState({email: evt.target.value})}
+							onChange={(evt) => this.setState({email: {value: evt.target.value}})}
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
 					</div>
 					<div className={classes.field}>
 						<TextField
-							error={emailError}
 							required
 							id="emailConfirm"
 							label="Confirmation email"
@@ -118,7 +128,7 @@ class Validation extends Component {
 							autoComplete="email"
 							margin="none"
 							variant="outlined"
-							onChange={(evt) => this.setState({email: evt.target.value})}
+							onChange={(evt) => this.setState({emailConfirm: {value: evt.target.value}})}
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
@@ -132,7 +142,12 @@ class Validation extends Component {
 	}
 
 	handleValid() {
-		console.log('handleValid')
+		/*
+		const {email, emailConfirm} = this.state
+		if (email !== emailConfirm) {
+			this.setState({email: {value: email.value, error: true}})
+		}
+		*/
 	}
 }
 
