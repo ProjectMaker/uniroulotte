@@ -27,7 +27,7 @@ class Panels extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			expanded: 'area'
+			expanded: ''
 		}
 	}
 	render() {

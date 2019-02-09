@@ -23,7 +23,6 @@ class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			expanded: 'area',
 			area: {
 				largeur: 2,
 				longueur: 4
