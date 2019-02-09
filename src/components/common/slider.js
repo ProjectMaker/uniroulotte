@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import MaterialSlider from '@material-ui/lab/Slider'
 import Typography from '@material-ui/core/Typography'
-import injectSheet from 'react-jss/lib/injectSheet';
+import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
 	wrapper: {
@@ -17,6 +17,20 @@ const styles = {
 			flexGrow: 1,
 			textAlign: 'center'
 		}
+	},
+	label: {
+		marginBottom: '10px',
+		marginLeft: '-5px'
+	},
+	min: {
+		marginLeft: '-5px'
+	},
+	value: {
+		flexGrow: 1,
+		textAlign: 'center'
+	},
+	max: {
+		marginRight: '-5px'
 	}
 }
 
@@ -35,19 +49,19 @@ class Slider extends Component {
 					onChange={(event, value) => this.handleChange(event, value)}
 				/>
 				<div className={classes.footer}>
-					<div>{min}</div>
-					<div className={"value"}>{`${value.toLocaleString()} ${unit}`}</div>
-					<div>{max}</div>
+					<Typography classes={{root: classes.min}}>{min}</Typography>
+					<Typography classes={{root: classes.value}}>{`${value.toLocaleString()} ${unit}`}</Typography>
+					<Typography classes={{root: classes.max}}>{max}</Typography>
 				</div>
 			</div>
 		)
 	}
 
 	renderLabel () {
-		const {label} = this.props
+		const {classes, label} = this.props
 		if (label.length) {
 			return (
-				<Typography variant={"body1"} gutterBottom>
+				<Typography classes={{root: classes.label}}>
 					{label}
 				</Typography>
 			)
@@ -79,4 +93,5 @@ Slider.propTypes = {
 	label: PropTypes.string,
 	onChange: PropTypes.func
 }
-export default injectSheet(styles)(Slider)
+
+export default withStyles(styles)(Slider)

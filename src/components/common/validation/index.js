@@ -31,7 +31,8 @@ const styles = theme => ({
 	},
 
 	button: {
-		marginTop: '20px'
+		marginTop: '20px',
+		color: theme.palette.common.white
 	}
 })
 

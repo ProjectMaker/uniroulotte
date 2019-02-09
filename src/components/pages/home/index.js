@@ -77,7 +77,7 @@ class Home extends Component {
 						<Grid item xs={12} md={6}>
 							<ExpansionPanel expanded={expanded === 'area'} onChange={() => this.handleExpandPanel('area')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-									<Typography>Superficie</Typography>
+									<Typography variant={"subtitle1"}>Superficie</Typography>
 								</ExpansionPanelSummary>
 								<ExpansionPanelDetails>
 									<div style={{width: '100%'}}>
@@ -89,7 +89,7 @@ class Home extends Component {
 							</ExpansionPanel>
 							<ExpansionPanel expanded={expanded === 'equipment'} onChange={() => this.handleExpandPanel('equipment')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-									<Typography>Equipements / Aménagements</Typography>
+									<Typography variant={"subtitle1"}>Equipements / Aménagements</Typography>
 								</ExpansionPanelSummary>
 								<ExpansionPanelDetails>
 									<div style={{width: '100%'}}>
@@ -102,7 +102,7 @@ class Home extends Component {
 							</ExpansionPanel>
 							<ExpansionPanel expanded={expanded === 'opening'} onChange={() => this.handleExpandPanel('opening')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-									<Typography>Ouvertures</Typography>
+									<Typography variant={"subtitle1"}>Ouvertures</Typography>
 								</ExpansionPanelSummary>
 								<ExpansionPanelDetails>
 									<div style={{width: '100%'}}>
@@ -117,7 +117,7 @@ class Home extends Component {
 							</ExpansionPanel>
 							<ExpansionPanel expanded={expanded === 'roofing'} onChange={() => this.handleExpandPanel('roofing')}>
 								<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-									<Typography>Toiture / Couverture</Typography>
+									<Typography variant={"subtitle1"}>Toiture / Couverture</Typography>
 								</ExpansionPanelSummary>
 								<ExpansionPanelDetails>
 									<div style={{width: '100%'}}>
@@ -134,7 +134,7 @@ class Home extends Component {
 								</div>
 							</div>
 						</Grid>
-						<Grid item md={6}>
+						<Grid item md={6}	>
 							<Hidden only={'xs'}>
 								<Basket
 									area={area}
