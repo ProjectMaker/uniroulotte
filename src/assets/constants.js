@@ -19,3 +19,23 @@ export const PRICES = {
 		tolegalva: 75
 	}
 }
+
+
+export const EQUIPMENTS = [
+	{label: 'Chambre / Pièce de vie', value: 'bedroom'},
+	{label: 'Chambre séparée', value: 'bedroomSepareted', canHaveDoor: true, door: false},
+	{label: 'Salle de bain', value: 'bathroom', canHaveDoor: true, door: false},
+	{label: 'Cuisine', value: 'kitchen', canHaveDoor: true, door: false},
+	{label: 'Balcon', value: 'balcony'}
+]
+
+export const ROOFING = [
+	{label: 'Zinc à joint debout', value: 'zinc'},
+	{label: 'Tôles cintrées type bac acier', value: 'tolecintree'},
+	{label: 'Tôles plates galvanisées', value: 'tolegalva'}
+]
+
+export const WINDOWS = [
+	{label: 'Cintrée', value: 'arch'},
+	{label: 'Rectangulaire', value: 'rectangular'}
+]

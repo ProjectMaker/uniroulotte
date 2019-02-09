@@ -22,9 +22,7 @@ class App extends Component {
   render() {
     return (
 			<MuiThemeProvider theme={theme}>
-				<div>
-					<Home />
-				</div>
+				<Home />
 			</MuiThemeProvider>
     )
   }
