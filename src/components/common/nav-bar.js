@@ -22,13 +22,20 @@ const styles = theme => ({
 	},
 	links: {
 		display: 'flex',
-		justifyContent: 'flex-end'
+		justifyContent: 'flex-end',
+
+		"& ul": {
+			margin: '10px 0 0'
+		},
 	},
 	link: {
 		display: 'inline',
 		color: theme.palette.common.white,
 		marginRight: '20px',
 		cursor: 'pointer',
+		[theme.breakpoints.down('xs')]: {
+			display: 'block'
+		},
 
 		"&:last-child": {
 			marginRight: 0
@@ -66,7 +73,7 @@ class NavBar extends Component {
 							<ul>
 								<li className={classes.link}><a href="https://www.uni-roulotte.fr">Home page</a></li>
 								<li className={classes.link}><a href="https://www.uni-roulotte.fr/mes-roulottes-en-bois">Mes roulottes</a></li>
-								<li className={classes.link}><a href="https://www.uni-roulotte.fr/mes-valeurs">Qui suis-je / Mes valeurs</a></li>
+								<li className={classes.link}><a href="https://www.uni-roulotte.fr/mes-valeurs">Mes valeurs</a></li>
 								<li className={classes.link}><a href="https://www.uni-roulotte.fr/me-contacter">Me contacter</a></li>
 							</ul>
 						</div>
