@@ -1,9 +1,10 @@
-import { http } from './'
+import axios from 'axios'
+// import { http } from './'
 import {PRICES} from "../constants";
 
 
 export const sendDemand = (email, firstname, lastname, price) => {
-	return http.post('/devis',{
+	return axios.post('http://api.uni-roulotte.fr/devis',{
 		email,
 		firstname,
 		lastname,
