@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import {withStyles} from '@material-ui/core/styles'
-import Typography from "@material-ui/core/Typography/Typography";
+import Typography from "@material-ui/core/Typography/Typography"
+
+import { sendDemand } from "../../../assets/api/devis"
+import ModalError from "./modal"
 
 const styles = theme => ({
 	fields: {
@@ -14,7 +18,6 @@ const styles = theme => ({
 	},
 
 	field: {
-
 		marginLeft: '10px',
 		"&:first-child": {
 			marginLeft: 0
@@ -64,7 +67,9 @@ class Validation extends Component {
 			lastname: {
 				value: '',
 				error: false
-			}
+			},
+			apiOnError: false,
+			apiCalled: false
 		}
 	}
 
@@ -84,11 +89,12 @@ class Validation extends Component {
 		}
 	}
 
-	render () {
+	render() {
 		const {classes} = this.props
-		const {email, emailConfirm, lastname, firstname} = this.state
+		const {email, emailConfirm, lastname, firstname, apiCalled} = this.state
 		return (
 			<div>
+				<ModalError open={this.state.apiOnError} onClose={() => this.setState({apiOnError: false})}/>
 				<Typography>Veuillez remplir les champs ci-dessous afin de recevoir votre devis</Typography>
 				<div className={classes.fields}>
 					<div className={classes.field}>
@@ -101,10 +107,11 @@ class Validation extends Component {
 							margin="none"
 							variant="outlined"
 							onChange={(evt) => this.handleChange('lastname', evt.target.value)}
-							InputProps={{ classes: { input: classes.input } }}
-							InputLabelProps={{ classes: { root: classes.label } }}
+							InputProps={{classes: {input: classes.input}}}
+							InputLabelProps={{classes: {root: classes.label}}}
 						/>
-						{lastname.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Le nom est obligatoire</Typography> : ''}
+						{lastname.error ?
+							<Typography variant={"caption"} classes={{root: classes.error}}>Le nom est obligatoire</Typography> : ''}
 					</div>
 					<div className={classes.field}>
 						<TextField
@@ -116,10 +123,11 @@ class Validation extends Component {
 							margin="none"
 							variant="outlined"
 							onChange={(evt) => this.setState({firstname: {value: evt.target.value}})}
-							InputProps={{ classes: { input: classes.input } }}
-							InputLabelProps={{ classes: { root: classes.label } }}
+							InputProps={{classes: {input: classes.input}}}
+							InputLabelProps={{classes: {root: classes.label}}}
 						/>
-						{firstname.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Le prénom est obligatoire</Typography> : ''}
+						{firstname.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Le prénom est
+							obligatoire</Typography> : ''}
 					</div>
 				</div>
 				<div className={classes.fields}>
@@ -135,10 +143,11 @@ class Validation extends Component {
 							margin="none"
 							variant="outlined"
 							onChange={(evt) => this.setState({email: {value: evt.target.value}})}
-							InputProps={{ classes: { input: classes.input } }}
-							InputLabelProps={{ classes: { root: classes.label } }}
+							InputProps={{classes: {input: classes.input}}}
+							InputLabelProps={{classes: {root: classes.label}}}
 						/>
-						{email.error ? <Typography variant={"caption"} classes={{root: classes.error}}>L'email n'est pas correct</Typography> : ''}
+						{email.error ? <Typography variant={"caption"} classes={{root: classes.error}}>L'email n'est pas
+							correct</Typography> : ''}
 					</div>
 					<div className={classes.field}>
 						<TextField
@@ -151,21 +160,26 @@ class Validation extends Component {
 							margin="none"
 							variant="outlined"
 							onChange={(evt) => this.setState({emailConfirm: {value: evt.target.value}})}
-							InputProps={{ classes: { input: classes.input } }}
-							InputLabelProps={{ classes: { root: classes.label } }}
+							InputProps={{classes: {input: classes.input}}}
+							InputLabelProps={{classes: {root: classes.label}}}
 						/>
-						{emailConfirm.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Les emails sont différents</Typography> : ''}
+						{emailConfirm.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Les emails sont
+							différents</Typography> : ''}
 					</div>
 				</div>
-				<Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
-					Envoyer la demande de devis
-				</Button>
+				{!apiCalled ?
+					<Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
+						Envoyer la demande de devis
+					</Button>
+				: <Button variant="contained" color="primary" disabled className={classes.button}>
+						Envoi en cours ...
+					</Button>}
 			</div>
 		)
 	}
 
 	handleChange(key, value) {
-		this.setState({[key]: { value, error: false}})
+		this.setState({[key]: {value, error: false}})
 	}
 
 	handleValidField(key) {
@@ -173,34 +187,50 @@ class Validation extends Component {
 		if (['firstname', 'lastname'].includes(key)) {
 			if (!field.value.length) {
 				this.setState({[key]: {value: field.value, error: true}})
+				return false
 			} else {
 				this.setState({[key]: {value: field.value, error: false}})
+				return true
 			}
-		} else if (['email', 'emailConfirm'].includes(key)) {
+		} else if (key === 'email') {
 			if (!this.validEmail(key)) {
 				this.setState({email: {value: field.value, error: true}})
+				return false
 			} else {
 				this.setState({email: {value: field.value, error: false}})
+				return true
 			}
 		}
 	}
 
 	handleValid() {
-		const {email, emailConfirm} = this.state
-		this.handleValidField('lastname')
-		this.handleValidField('firstname')
-		this.handleValidField('email')
+		const {lastname, firstname, email, emailConfirm} = this.state
+		let isNotValid = !this.handleValidField('lastname')
+			|| !this.handleValidField('firstname')
+			|| !this.handleValidField('email')
 
 		if (email.value !== emailConfirm.value) {
 			this.setState({emailConfirm: {value: emailConfirm.value, error: true}})
+			isNotValid = true
+		}
+		if (!isNotValid) {
+			this.setState({apiCalled: true})
+			sendDemand(email, firstname, lastname, this.props.price.toLocaleString())
+				.then(res => console.log('res', res))
+				.catch(err => this.setState({apiOnError: true}))
+				.finally(() => this.setState({apiCalled: false}))
 		}
 	}
 
 	validEmail(key) {
 		const email = this.state[key]
+		// eslint-disable-next-line
 		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 		return re.test(email.value.toLowerCase());
 	}
 }
 
+Validation.propTypes = {
+	price: PropTypes.number.isRequired
+}
 export default withStyles(styles)(Validation)

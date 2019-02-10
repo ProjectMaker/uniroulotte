@@ -7,6 +7,17 @@ import Validation from '../../../components/common/validation'
 import Sidebar from './sidebar'
 import Panels from './panels'
 
+import {
+	calculateArea,
+	calculateBalcony,
+	calculateBedroom,
+	calculateEntryDoor,
+	calculateRoofing,
+	calculateRoomWater,
+	calculateShutter,
+	calculateWindow
+} from "../../../assets/api/devis"
+
 const styles = {
 	grid: {
 		margin: '20px'
@@ -35,13 +46,25 @@ class Home extends Component {
 			roofing: {
 				label: 'Zinc à joint debout',
 				value: 'zinc'
-			}
+			},
+			price: 0,
+			hasChange: false
 		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.hasChange) {
+			this.calculatePrice()
+		}
+	}
+
+	componentDidMount() {
+		this.calculatePrice()
 	}
 
 	render() {
 		const {classes} = this.props
-		const {area, equipments, door, windows, roofing} = this.state
+		const {area, equipments, door, windows, roofing, price} = this.state
 		return (
 			<div>
 				<NavBar/>
@@ -52,18 +75,18 @@ class Home extends Component {
 								<Col xs={12} md={9}>
 									<Panels
 										area={area}
-										onChangeArea={(area) => this.setState({area})}
+										onChangeArea={(area) => this.handleChange('area', area)}
 										equipments={equipments}
-										onChangeEquipments={(equipments) => this.setState({equipments})}
+										onChangeEquipments={(equipments) => this.handleChange('equipments', equipments)}
 										windows={windows}
-										onChangeWindows={(windows) => this.setState({windows})}
+										onChangeWindows={(windows) => this.handleChange('windows', windows)}
 										door={door}
-										onChangeDoor={(door) => this.setState({door})}
+										onChangeDoor={(door) => this.handleChange('door', door)}
 										roofing={roofing}
-										onChangeRoofing={(roofing) => this.setState({roofing})}/>
+										onChangeRoofing={(roofing) => this.handleChange('roofing', roofing)}/>
 									<div className={classes.validation}>
 										<div style={{width: '100%'}}>
-											<Validation/>
+											<Validation price={price}/>
 										</div>
 									</div>
 								</Col>
@@ -81,6 +104,23 @@ class Home extends Component {
 				</Grid>
 			</div>
 		)
+	}
+
+	calculatePrice() {
+		const area = calculateArea(this.state.area)
+		const roomWater = calculateRoomWater(this.state.equipments)
+		const bedroom = calculateBedroom(this.state.equipments)
+		const window = calculateWindow(this.state.windows)
+		const entryDoor = calculateEntryDoor(this.state.door)
+		const shutter = calculateShutter(this.state.windows)
+		const balcony = calculateBalcony(this.state.equipments)
+		const roofing = calculateRoofing(this.state.roofing, this.state.area)
+		const price = area + roomWater + window + entryDoor + shutter + balcony + roofing + bedroom
+		this.setState({price, hasChange: false})
+	}
+
+	handleChange(item, value) {
+		this.setState({[item]: value, hasChange: true})
 	}
 }
 

@@ -4,7 +4,16 @@ import Typography from "@material-ui/core/Typography/Typography"
 import {withStyles} from '@material-ui/core/styles'
 
 import { PRICES } from "../../../assets/constants"
-
+import {
+	calculateArea,
+	calculateBalcony,
+	calculateBedroom,
+	calculateEntryDoor,
+	calculateRoofing,
+	calculateRoomWater,
+	calculateShutter,
+	calculateWindow
+} from "../../../assets/api/devis"
 const styles = {
 	title: {
 		marginBottom: '10px'
@@ -17,14 +26,14 @@ const styles = {
 
 class Simulator extends Component {
 	render() {
-		const area = this.calculateArea()
-		const roomWater = this.calculateRoomWater()
-		const bedroom = this.calculateBedroom()
-		const window = this.calculateWindow()
-		const entryDoor = this.calculateEntryDoor()
-		const shutter = this.calculateShutter()
-		const balcony = this.calculateBalcony()
-		const roofing = this.calculateRoofing()
+		const area = calculateArea(this.props.area)
+		const roomWater = calculateRoomWater(this.props.equipments)
+		const bedroom = calculateBedroom(this.props.equipments)
+		const window = calculateWindow(this.props.windows)
+		const entryDoor = calculateEntryDoor(this.props.door)
+		const shutter = calculateShutter(this.props.windows)
+		const balcony = calculateBalcony(this.props.equipments)
+		const roofing = calculateRoofing(this.props.roofing, this.props.area)
 		const total = area + roomWater + window + entryDoor + shutter + balcony + roofing + bedroom
 		return (
 			<div>
@@ -104,11 +113,15 @@ class Simulator extends Component {
 	}
 }
 
+Simulator.defaultProps = {
+	onChange: () => {}
+}
 Simulator.propTypes = {
 	area: PropTypes.object.isRequired,
 	equipments: PropTypes.array.isRequired,
 	door: PropTypes.object.isRequired,
 	windows: PropTypes.array.isRequired,
-	roofing: PropTypes.object.isRequired
+	roofing: PropTypes.object.isRequired,
+	onChange: PropTypes.func
 }
 export default withStyles(styles)(Simulator)
