@@ -39,6 +39,9 @@ const styles = theme => ({
 	button: {
 		marginTop: '20px',
 		color: theme.palette.common.white
+	},
+	error: {
+		color: '#ba000d'
 	}
 })
 
@@ -65,9 +68,25 @@ class Validation extends Component {
 		}
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		const {firstname, lastname, email, emailConfirm} = this.state
+		if (firstname.value !== prevState.firstname.value) {
+			this.handleValidField('firstname')
+		}
+		if (lastname.value !== prevState.lastname.value) {
+			this.handleValidField('lastname')
+		}
+		if (email.value !== prevState.email.value) {
+			this.handleValidField('email')
+		}
+		if (emailConfirm.value !== prevState.emailConfirm.value) {
+			this.handleValidField('emailConfirm')
+		}
+	}
+
 	render () {
 		const {classes} = this.props
-		const {email, lastname, firstname} = this.state
+		const {email, emailConfirm, lastname, firstname} = this.state
 		return (
 			<div>
 				<Typography>Veuillez remplir les champs ci-dessous afin de recevoir votre devis</Typography>
@@ -81,10 +100,11 @@ class Validation extends Component {
 							name="lastname"
 							margin="none"
 							variant="outlined"
-							onChange={(evt) => this.setState({lastname: {value: evt.target.value}})}
+							onChange={(evt) => this.handleChange('lastname', evt.target.value)}
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
+						{lastname.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Le nom est obligatoire</Typography> : ''}
 					</div>
 					<div className={classes.field}>
 						<TextField
@@ -99,6 +119,7 @@ class Validation extends Component {
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
+						{firstname.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Le prénom est obligatoire</Typography> : ''}
 					</div>
 				</div>
 				<div className={classes.fields}>
@@ -117,6 +138,7 @@ class Validation extends Component {
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
+						{email.error ? <Typography variant={"caption"} classes={{root: classes.error}}>L'email n'est pas correct</Typography> : ''}
 					</div>
 					<div className={classes.field}>
 						<TextField
@@ -132,6 +154,7 @@ class Validation extends Component {
 							InputProps={{ classes: { input: classes.input } }}
 							InputLabelProps={{ classes: { root: classes.label } }}
 						/>
+						{emailConfirm.error ? <Typography variant={"caption"} classes={{root: classes.error}}>Les emails sont différents</Typography> : ''}
 					</div>
 				</div>
 				<Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
@@ -141,13 +164,42 @@ class Validation extends Component {
 		)
 	}
 
-	handleValid() {
-		/*
-		const {email, emailConfirm} = this.state
-		if (email !== emailConfirm) {
-			this.setState({email: {value: email.value, error: true}})
+	handleChange(key, value) {
+		this.setState({[key]: { value, error: false}})
+	}
+
+	handleValidField(key) {
+		const field = this.state[key]
+		if (['firstname', 'lastname'].includes(key)) {
+			if (!field.value.length) {
+				this.setState({[key]: {value: field.value, error: true}})
+			} else {
+				this.setState({[key]: {value: field.value, error: false}})
+			}
+		} else if (['email', 'emailConfirm'].includes(key)) {
+			if (!this.validEmail(key)) {
+				this.setState({email: {value: field.value, error: true}})
+			} else {
+				this.setState({email: {value: field.value, error: false}})
+			}
 		}
-		*/
+	}
+
+	handleValid() {
+		const {email, emailConfirm} = this.state
+		this.handleValidField('lastname')
+		this.handleValidField('firstname')
+		this.handleValidField('email')
+
+		if (email.value !== emailConfirm.value) {
+			this.setState({emailConfirm: {value: emailConfirm.value, error: true}})
+		}
+	}
+
+	validEmail(key) {
+		const email = this.state[key]
+		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		return re.test(email.value.toLowerCase());
 	}
 }
 
