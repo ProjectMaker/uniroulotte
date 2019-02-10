@@ -26,7 +26,7 @@ const styles = theme => ({
 			display: 'flex',
 			flexDirection: 'row',
 			alignItems: 'center',
-			marginLeft: '48px',
+			marginLeft: '46px',
 			[theme.breakpoints.down('xs')]: {
 				marginLeft: 0,
 			},
