@@ -215,7 +215,7 @@ class Validation extends Component {
 		}
 		if (!isNotValid) {
 			this.setState({apiCalled: true})
-			sendDemand(email, firstname, lastname, this.props.price.toLocaleString())
+			sendDemand(email.value, firstname.value, lastname.value, this.props.price.toLocaleString())
 				.then(res => console.log('res', res))
 				.catch(err => this.setState({apiOnError: true}))
 				.finally(() => this.setState({apiCalled: false}))
