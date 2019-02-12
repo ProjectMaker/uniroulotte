@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Typography from "@material-ui/core/Typography/Typography"
 import {withStyles} from '@material-ui/core/styles'
 
-import { PRICES } from "../../../assets/constants"
 import {
 	calculateArea,
 	calculateBalcony,

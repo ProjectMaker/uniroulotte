@@ -83,7 +83,7 @@ class OpeningWindow extends Component {
 				</Typography>
 				<div className="formGroup">
 					<div className={"icon"} onClick={() => this.handleAddWindow(-1)}>
-						<RemoveIcon color={"secondary"} onClick={() => console.log('clic')}/>
+						<RemoveIcon color={"secondary"}/>
 					</div>
 					<div className={"value"}>{windows.length}</div>
 					<div className={"icon"} onClick={() => this.handleAddWindow(1)}>
@@ -126,7 +126,7 @@ class OpeningWindow extends Component {
 		if (inc === -1) {
 			windows.shift()
 		} else {
-			windows.push({type: 'arch', 'shutter': true})
+			windows.push({type: 'rectangular', 'shutter': false})
 		}
 		onChange(windows)
 	}

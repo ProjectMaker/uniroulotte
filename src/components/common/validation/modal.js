@@ -68,7 +68,7 @@ class ModalError extends React.Component {
 						</Typography>
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={this.props.handleClose} color="primary">
+						<Button onClick={this.props.onClose} color="primary">
 							Fermer
 						</Button>
 					</DialogActions>

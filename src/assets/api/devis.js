@@ -4,7 +4,7 @@ import {PRICES} from "../constants";
 
 
 export const sendDemand = (email, firstname, lastname, price) => {
-	return axios.post('http://api.uni-roulotte.fr/devis',{
+	return axios.post('https://api.uni-roulotte.fr/devis',{
 		email,
 		firstname,
 		lastname,
@@ -20,7 +20,7 @@ export const calculateArea = (area) => {
 
 export const calculateBedroom = (equipments)  => {
 	const nbRooms = equipments.filter(equipment => ['bedroomSepareted'].includes(equipment.value)).length
-	return nbRooms * ( PRICES['room'] + PRICES['interiorDoor'] )
+	return nbRooms * PRICES['interiorDoor']
 }
 
 export const calculateRoomWater = (equipments) => {

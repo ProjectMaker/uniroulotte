@@ -44,8 +44,8 @@ class Home extends Component {
 			},
 			windows: [],
 			roofing: {
-				label: 'Zinc à joint debout',
-				value: 'zinc'
+				label: 'Tôles plates galvanisées',
+				value: 'tolegalva'
 			},
 			price: 0,
 			hasChange: false

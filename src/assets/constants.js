@@ -30,12 +30,12 @@ export const EQUIPMENTS = [
 ]
 
 export const ROOFING = [
-	{label: 'Zinc à joint debout', value: 'zinc'},
+	{label: 'Tôles plates galvanisées', value: 'tolegalva'},
 	{label: 'Tôles cintrées type bac acier', value: 'tolecintree'},
-	{label: 'Tôles plates galvanisées', value: 'tolegalva'}
+	{label: 'Zinc à joint debout', value: 'zinc'}
 ]
 
 export const WINDOWS = [
-	{label: 'Cintrée', value: 'arch'},
-	{label: 'Rectangulaire', value: 'rectangular'}
+	{label: 'Rectangulaire', value: 'rectangular'},
+	{label: 'Cintrée', value: 'arch'}
 ]
