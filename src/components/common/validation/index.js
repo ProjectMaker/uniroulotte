@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import {withStyles} from '@material-ui/core/styles'
 import Typography from "@material-ui/core/Typography/Typography"
-
+import { withRouter } from 'react-router-dom'
 import { sendDemand } from "../../../assets/api/devis"
 import ModalError from "./modal"
 
@@ -216,7 +216,7 @@ class Validation extends Component {
 		if (!isNotValid) {
 			this.setState({apiCalled: true})
 			sendDemand(email.value, firstname.value, lastname.value, this.props.price.toLocaleString())
-				.then(res => console.log('res', res))
+				.then(res => this.props.history.push('/confirm'))
 				.catch(err => this.setState({apiOnError: true}))
 				.finally(() => this.setState({apiCalled: false}))
 		}
@@ -233,4 +233,4 @@ class Validation extends Component {
 Validation.propTypes = {
 	price: PropTypes.number.isRequired
 }
-export default withStyles(styles)(Validation)
+export default withRouter(withStyles(styles)(Validation))
