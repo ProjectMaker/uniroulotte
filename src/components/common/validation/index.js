@@ -205,6 +205,8 @@ class Validation extends Component {
 
 	handleValid() {
 		const {lastname, firstname, email, emailConfirm} = this.state
+		const {area, equipments, windows, door, roofing} = this.props
+		const detail = { area, equipments, windows, door, roofing }
 		let isNotValid = !this.handleValidField('lastname')
 			|| !this.handleValidField('firstname')
 			|| !this.handleValidField('email')
@@ -215,10 +217,9 @@ class Validation extends Component {
 		}
 		if (!isNotValid) {
 			this.setState({apiCalled: true})
-			sendDemand(email.value, firstname.value, lastname.value, this.props.price.toLocaleString())
+			sendDemand(email.value, firstname.value, lastname.value, this.props.price.toLocaleString(), detail)
 				.then(res => this.props.history.push('/confirm'))
 				.catch(err => this.setState({apiOnError: true}))
-				.finally(() => this.setState({apiCalled: false}))
 		}
 	}
 
@@ -231,6 +232,11 @@ class Validation extends Component {
 }
 
 Validation.propTypes = {
-	price: PropTypes.number.isRequired
+	price: PropTypes.number.isRequired,
+	area: PropTypes.object.isRequired,
+	equipments: PropTypes.array.isRequired,
+	windows: PropTypes.array.isRequired,
+	door: PropTypes.object.isRequired,
+	roofing: PropTypes.object.isRequired
 }
 export default withRouter(withStyles(styles)(Validation))

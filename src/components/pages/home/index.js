@@ -83,7 +83,13 @@ class Home extends Component {
 									onChangeRoofing={(roofing) => this.handleChange('roofing', roofing)}/>
 								<div className={classes.validation}>
 									<div style={{width: '100%'}}>
-										<Validation price={price}/>
+										<Validation
+											price={price}
+											area={area}
+											equipments={equipments}
+											door={door}
+											windows={windows}
+											roofing={roofing}/>
 									</div>
 								</div>
 							</Col>

@@ -1,14 +1,15 @@
 import axios from 'axios'
-// import { http } from './'
 import {PRICES} from "../constants";
 
+const apiDevisUrl = "https://api.uni-roulotte.fr/devis"
 
-export const sendDemand = (email, firstname, lastname, price) => {
-	return axios.post('https://api.uni-roulotte.fr/devis',{
+export const sendDemand = (email, firstname, lastname, price, detail) => {
+	return axios.post(apiDevisUrl,{
 		email,
 		firstname,
 		lastname,
-		price
+		price,
+		detail
 	})
 }
 
