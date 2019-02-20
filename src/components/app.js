@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 
 import { theme } from './theme'
+import DevisList from './pages/list'
 import Home from './pages/home/index'
 import Confirm from './pages/confirm'
 import NavBar from './common/nav-bar'
@@ -19,6 +20,7 @@ class App extends Component {
 					<div>
 						<Route exact path="/" component={Home} />
 						<Route path="/confirm" component={Confirm} />
+						<Route path="/list" component={DevisList} />
 					</div>
 				</Router>
 			</MuiThemeProvider>
