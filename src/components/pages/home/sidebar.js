@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Basket from "../../common/basket";
-import Simulator from "../../common/basket/simulator";
 import Hidden from "@material-ui/core/Hidden/Hidden";
 
 class Sidebar extends Component {
@@ -10,12 +9,6 @@ class Sidebar extends Component {
 		return (
 			<Hidden only={'xs'}>
 				<Basket
-					area={area}
-					equipments={equipments}
-					door={door}
-					windows={windows}
-					roofing={roofing}/>
-				<Simulator
 					area={area}
 					equipments={equipments}
 					door={door}
