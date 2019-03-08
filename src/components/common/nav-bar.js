@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {withRouter} from "react-router"
 import {Link} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
@@ -57,10 +58,13 @@ class NavBar extends Component {
       menuExpanded: false
     }
   }
-
+  componentDidMount() {
+    const {history} = this.props
+    this.props.authenticateUser(history)
+  }
   render() {
     const {menuExpanded} = this.state
-    const {classes} = this.props
+    const {classes, user} = this.props
     return (
       <AppBar position="static" classes={{root: classes.appBar}}>
         <div className={classes.toolbar}>
@@ -69,7 +73,7 @@ class NavBar extends Component {
           </Typography>
           <IconMenu classes={{root: classes.iconMenu}} onClick={() => this.setState({menuExpanded: !menuExpanded})}/>
         </div>
-        {menuExpanded ?
+        {menuExpanded ? user.data ? this.renderAdminMenu() : this.renderDefaultMenu()
           (
             <div className={classes.links}>
               <ul>
@@ -88,9 +92,42 @@ class NavBar extends Component {
     )
   }
 
-  hasLinkAdmin() {
-    return localStorage.getItem('user') ? true : false
+  renderDefaultMenu() {
+    const {classes} = this.props
+    return (
+      <div className={classes.links}>
+        <ul>
+          <li className={classes.link}>
+            <a href="https://www.uni-roulotte.fr">Home page</a></li>
+          <li className={classes.link}>
+            <a href="https://www.uni-roulotte.fr/mes-roulottes-en-bois">Mes roulottes</a>
+          </li>
+          <li className={classes.link}>
+            <a href="https://www.uni-roulotte.fr/mes-valeurs">Mes valeurs</a>
+          </li>
+          <li className={classes.link}>
+            <a href="https://www.uni-roulotte.fr/me-contacter">Me contacter</a>
+          </li>
+        </ul>
+      </div>
+    )
+  }
+
+  renderAdminMenu() {
+    const {classes} = this.props
+    return (
+      <div className={classes.links}>
+        <ul>
+          <li className={classes.link}><Link to="/">Simulateur</Link></li>
+          <li className={classes.link}><Link to="/list">Liste des devis</Link></li>
+        </ul>
+      </div>
+    )
   }
 }
 
+NavBar.propTypes = {
+  user: PropTypes.object.isRequired,
+  authenticateUser: PropTypes.func.isRequired
+}
 export default withRouter(withStyles(styles)(NavBar))

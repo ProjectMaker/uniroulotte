@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 import {withStyles} from '@material-ui/core/styles'
 import Button from "@material-ui/core/Button/Button"
-import {login} from "../../../assets/api/user"
 
 const styles = theme => ({
   card: {
@@ -46,8 +46,9 @@ class AccountLogin extends Component {
   }
 
   render() {
-    const {classes} = this.props
+    const {classes, user} = this.props
     const {email, password} = this.state
+    console.log(user)
     return (
       <div className={classes.card}>
         <div className={classes.form}>
@@ -80,9 +81,13 @@ class AccountLogin extends Component {
             />
           </div>
           <div>
-            <Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
-              Connexion
-            </Button>
+            {!user.isFetching ?
+              <Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
+                Connexion
+              </Button>
+            : <Button variant="contained" color="primary" disabled className={classes.button}>
+                Envoi en cours ...
+              </Button>}
           </div>
         </div>
       </div>
@@ -115,15 +120,13 @@ class AccountLogin extends Component {
   }
 
   handleValid() {
+    const {siginUser} = this.props
     const {email, password} = this.state
     let isNotValid = !this.validateField('email')
       || !this.validateField('password')
 
     if (!isNotValid) {
-      this.setState({apiCalled: true})
-      login(email.value, password.value)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+      siginUser(email.value, password.value)
     }
   }
 
@@ -135,5 +138,8 @@ class AccountLogin extends Component {
   }
 }
 
+AccountLogin.propTypes = {
+  user: PropTypes.object.isRequired
+}
 
 export default withStyles(styles)(AccountLogin)
