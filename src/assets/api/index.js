@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const devUrl = "http://localhost:4040"
-const prodUrl = "http://api.uni-roulotte.fr"
+const prodUrl = "https://api.uni-roulotte.fr"
 
 const getHeaders = () => {
   const headers = {
