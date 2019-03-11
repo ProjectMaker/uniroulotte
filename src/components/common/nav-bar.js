@@ -99,6 +99,9 @@ class NavBar extends Component {
           <li className={classes.link}>
             <a href="https://www.uni-roulotte.fr/me-contacter">Me contacter</a>
           </li>
+          <li className={classes.link}>
+            <Link to="/account/login">Se connecter</Link>
+          </li>
         </ul>
       </div>
     )
