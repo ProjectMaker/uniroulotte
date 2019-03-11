@@ -59,8 +59,8 @@ class NavBar extends Component {
     }
   }
   componentDidMount() {
-    const {history} = this.props
-    this.props.authenticateUser(history)
+    // const {history} = this.props
+    // this.props.authenticateUser(history)
   }
   render() {
     const {menuExpanded} = this.state
