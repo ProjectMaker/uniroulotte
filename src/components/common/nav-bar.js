@@ -82,9 +82,6 @@ class NavBar extends Component {
                   roulottes</a></li>
                 <li className={classes.link}><a href="https://www.uni-roulotte.fr/mes-valeurs">Mes valeurs</a></li>
                 <li className={classes.link}><a href="https://www.uni-roulotte.fr/me-contacter">Me contacter</a></li>
-                {this.hasLinkAdmin() ?
-                  <li className={classes.link}><Link to="/list">Liste des devis</Link></li>
-                  : ''}
               </ul>
             </div>
           ) : ''}
