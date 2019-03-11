@@ -73,20 +73,14 @@ class NavBar extends Component {
           </Typography>
           <IconMenu classes={{root: classes.iconMenu}} onClick={() => this.setState({menuExpanded: !menuExpanded})}/>
         </div>
-        {menuExpanded ? user.data ? this.renderAdminMenu() : this.renderDefaultMenu()
-          (
-            <div className={classes.links}>
-              <ul>
-                <li className={classes.link}><a href="https://www.uni-roulotte.fr">Home page</a></li>
-                <li className={classes.link}><a href="https://www.uni-roulotte.fr/mes-roulottes-en-bois">Mes
-                  roulottes</a></li>
-                <li className={classes.link}><a href="https://www.uni-roulotte.fr/mes-valeurs">Mes valeurs</a></li>
-                <li className={classes.link}><a href="https://www.uni-roulotte.fr/me-contacter">Me contacter</a></li>
-              </ul>
-            </div>
-          ) : ''}
+        {menuExpanded ? this.renderMenu() : ''}
       </AppBar>
     )
+  }
+
+  renderMenu() {
+    const {user} = this.props
+    return user.data ? this.renderAdminMenu() : this.renderDefaultMenu()
   }
 
   renderDefaultMenu() {
