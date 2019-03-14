@@ -7,3 +7,7 @@ export const login = (email, password) => {
   }, getOptions())
     .then(resp => resp.data.token)
 }
+
+export const logout = () => {
+  return http.get('/account/logout', {}, getOptions())
+}

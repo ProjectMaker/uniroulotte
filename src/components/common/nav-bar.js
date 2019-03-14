@@ -58,13 +58,9 @@ class NavBar extends Component {
       menuExpanded: false
     }
   }
-  componentDidMount() {
-    // const {history} = this.props
-    // this.props.authenticateUser(history)
-  }
   render() {
     const {menuExpanded} = this.state
-    const {classes, user} = this.props
+    const {classes} = this.props
     return (
       <AppBar position="static" classes={{root: classes.appBar}}>
         <div className={classes.toolbar}>
@@ -114,6 +110,7 @@ class NavBar extends Component {
         <ul>
           <li className={classes.link}><Link to="/">Simulateur</Link></li>
           <li className={classes.link}><Link to="/list">Liste des devis</Link></li>
+          <li className={classes.link}><span onClick={() => this.props.signoutUser(this.props.history)}>Se déconnecter</span></li>
         </ul>
       </div>
     )
@@ -122,6 +119,7 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
   user: PropTypes.object.isRequired,
-  authenticateUser: PropTypes.func.isRequired
+  authenticateUser: PropTypes.func.isRequired,
+  signoutUser: PropTypes.func.isRequired,
 }
 export default withRouter(withStyles(styles)(NavBar))

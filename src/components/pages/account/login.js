@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
 import {withStyles} from '@material-ui/core/styles'
 import Button from "@material-ui/core/Button/Button"
 
@@ -48,7 +49,6 @@ class AccountLogin extends Component {
   render() {
     const {classes, user} = this.props
     const {email, password} = this.state
-    console.log(user)
     return (
       <div className={classes.card}>
         <div className={classes.form}>
@@ -74,12 +74,14 @@ class AccountLogin extends Component {
               label="Password"
               name="password"
               margin="none"
+              type="password"
               variant="outlined"
               onChange={(evt) => this.handleChange('password', evt.target.value)}
               InputProps={{classes: {input: classes.input}}}
               InputLabelProps={{classes: {root: classes.label}}}
             />
           </div>
+          {user.error ? <Typography>{user.error}</Typography> : ''}
           <div>
             {!user.isFetching ?
               <Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
