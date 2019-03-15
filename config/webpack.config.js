@@ -495,6 +495,9 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+      new webpack.DefinePlugin({
+        __API_URL__: process.env.API_URL
+      }),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&
