@@ -1,11 +1,12 @@
 import {http, getOptions} from './index'
 import {PRICES} from "../constants";
 
-export const sendDemand = (email, firstname, lastname, price, detail) => {
+export const sendDemand = (email, firstname, lastname, phoneNumber, price, detail) => {
   return http.post('/devis', {
     email,
     firstname,
     lastname,
+    phoneNumber,
     price,
     detail
   }, getOptions())

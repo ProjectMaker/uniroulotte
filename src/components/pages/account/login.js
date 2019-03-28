@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import FacebookLogin from 'react-facebook-login';
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import {withStyles} from '@material-ui/core/styles'
@@ -45,10 +44,6 @@ class AccountLogin extends Component {
         error: false
       }
     }
-  }
-
-  responseFacebook(response) {
-    console.log(response)
   }
 
   render() {
@@ -96,13 +91,6 @@ class AccountLogin extends Component {
                 Envoi en cours ...
               </Button>}
           </div>
-          <FacebookLogin
-            appId="2299461907001917"
-            autoLoad={true}
-            fields="name,email,picture"
-            scope="public_profile,user_friends,user_actions.books"
-            callback={this.responseFacebook}
-          />
         </div>
       </div>
     )

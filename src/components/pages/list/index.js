@@ -57,9 +57,10 @@ class DevisList extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Email</TableCell>
                 <TableCell>Nom</TableCell>
                 <TableCell>Prénom</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Téléphone</TableCell>
                 <TableCell>Prix</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell></TableCell>
@@ -80,16 +81,17 @@ class DevisList extends Component {
     return quotations.data.map((quotation) => (
       <React.Fragment key={`${quotation._id}`}>
         <TableRow>
-          <TableCell>{quotation.email}</TableCell>
           <TableCell>{quotation.firstname}</TableCell>
           <TableCell>{quotation.lastname}</TableCell>
+          <TableCell>{quotation.email}</TableCell>
+          <TableCell>{quotation.phoneNumber}</TableCell>
           <TableCell>{quotation.price.toLocaleString()}</TableCell>
           <TableCell>{moment(quotation.createdAt).format('YYYY/MM/DD')}</TableCell>
           <TableCell onClick={() => this.handleSelectQuotation(quotation)} className={classes.tableCellAction}>Voir le détail</TableCell>
         </TableRow>
         {this.state.quotationSelected === quotation ?
           <TableRow>
-            <TableCell colSpan={6}>
+            <TableCell colSpan={7}>
               <Basket {...quotation.detail} />
             </TableCell>
           </TableRow>
