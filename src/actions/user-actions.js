@@ -1,5 +1,57 @@
 import jwtDecode from 'jwt-decode'
-import {login} from '../assets/api/user'
+import {login} from '../api/user'
+
+import {
+  SIGNIN_USER,
+  SIGNIN_USER_SUCCESS,
+  SIGNOUT_USER,
+  SIGNOUT_USER_SUCCESS,
+  RETRIEVE_CURRENT_USER,
+  RETRIEVE_CURRENT_USER_SUCCESS
+} from '../constants'
+
+
+export const signinUser = (email, password) => {
+  return {
+    type: SIGNIN_USER,
+    credentials: {
+      email,
+      password
+    }
+  }
+}
+
+export const signinUserSuccess = (user) => {
+  return {
+    type: SIGNIN_USER_SUCCESS,
+    user
+  }
+}
+
+export const retrieveCurrentUser = () => {
+  return {
+    type: RETRIEVE_CURRENT_USER
+  }
+}
+
+export const retrieveCurrentUserSuccess = (user) => {
+  return {
+    type: RETRIEVE_CURRENT_USER_SUCCESS,
+    user
+  }
+}
+
+export const signoutUser = () => {
+  return {
+    type: SIGNOUT_USER
+  }
+}
+
+export const signoutUserSuccess = () => {
+  return {
+    type: SIGNOUT_USER_SUCCESS
+  }
+}
 
 export const requestUser = () => {
   return {type: 'REQUEST_USER'}
@@ -12,15 +64,8 @@ export const receiveUser = (user) => {
 export const signinError = (error) => {
   return {type: 'SIGNIN_ERROR', payload: error}
 }
-export const authenticateUser = () => (dispatch) => {
-  dispatch(requestUser())
-  const user = localStorage.getItem('user')
-  if (user) {
-    dispatch(receiveUser(JSON.parse(user)))
-  } else {
-    dispatch(receiveUser(null))
-  }
-}
+
+/*
 export const siginUser = (email, password, ownProps) => (dispatch) => {
   dispatch(requestUser())
   login(email, password)
@@ -34,9 +79,4 @@ export const siginUser = (email, password, ownProps) => (dispatch) => {
       dispatch(signinError('Authentification impossible'))
     })
 }
-
-export const signoutUser = (history) => (dispatch) => {
-  dispatch(receiveUser(null))
-  localStorage.clear()
-  history.push('/')
-}
+*/

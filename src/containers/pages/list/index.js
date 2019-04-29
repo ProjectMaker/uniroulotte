@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
-import withAuthenticate from '../../../components/hocs/withAuthenticate'
-import List from '../../../components/pages/list'
+import List from '../../../pages/list'
 
 const mapStateToProps = (state) => ({
   user: state.user
 })
 
-export default connect(mapStateToProps, null)(withAuthenticate(List))
+export default connect(mapStateToProps, null)(List)
