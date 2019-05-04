@@ -1,6 +1,7 @@
 import {
   SIGNIN_USER,
   SIGNIN_USER_SUCCESS,
+  SIGNIN_USER_ERROR,
   SIGNOUT_USER,
   SIGNOUT_USER_SUCCESS,
   RETRIEVE_CURRENT_USER,
@@ -26,7 +27,15 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         isFetched: true,
         isLoading: true,
+        error: null,
         data: action.user
+      }
+    case SIGNIN_USER_ERROR:
+      return {
+        ...state,
+        isFetched: true,
+        isLoading: true,
+        error: action.error
       }
     case RETRIEVE_CURRENT_USER:
       return {
@@ -38,7 +47,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         isFetched: true,
         isLoading: true,
-        data: action.user
+        data: action.user,
+        error: null
       }
     case SIGNOUT_USER:
       return {
@@ -49,7 +59,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         data: null,
-        isLoading: true
+        isLoading: true,
+        error: null
       }
     case 'REQUEST_USER':
       return Object.assign({}, state, {
