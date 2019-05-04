@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import NavBar from '../../../components/shared/nav-bar'
-import {authenticateUser, signoutUser} from "../../../actions/user-actions";
+import {signoutUser} from "../../../actions/user-actions";
 
 const mapStateToProps = (state) => ({
   user: state.user

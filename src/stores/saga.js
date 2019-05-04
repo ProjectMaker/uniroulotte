@@ -39,6 +39,5 @@ export function* makeSignoutUser() {
 
 export function* makeRetrieveCurrentUser() {
   const user = yield localstorage.getCurrentUser()
-  console.log('retrieve', user)
   yield put(retrieveCurrentUserSuccess(user))
 }

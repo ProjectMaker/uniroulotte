@@ -1,6 +1,3 @@
-import jwtDecode from 'jwt-decode'
-import {login} from '../api/user'
-
 import {
   SIGNIN_USER,
   SIGNIN_USER_SUCCESS,
@@ -52,31 +49,3 @@ export const signoutUserSuccess = () => {
     type: SIGNOUT_USER_SUCCESS
   }
 }
-
-export const requestUser = () => {
-  return {type: 'REQUEST_USER'}
-}
-
-export const receiveUser = (user) => {
-  return {type: 'RECEIVE_USER', payload: user}
-}
-
-export const signinError = (error) => {
-  return {type: 'SIGNIN_ERROR', payload: error}
-}
-
-/*
-export const siginUser = (email, password, ownProps) => (dispatch) => {
-  dispatch(requestUser())
-  login(email, password)
-    .then(token => {
-      const user = jwtDecode(token)
-      dispatch(receiveUser(user))
-      localStorage.setItem('user', JSON.stringify(user))
-      ownProps.history.push('/list')
-    })
-    .catch(err => {
-      dispatch(signinError('Authentification impossible'))
-    })
-}
-*/
