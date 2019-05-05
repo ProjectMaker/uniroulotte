@@ -70,3 +70,16 @@ export const calculateRoofing = (roofing, area) => {
 
   return Math.ceil(largeur * longueur * price)
 }
+
+export const calculatePrice = ({area, equipments, windows, door, roofing}) => {
+  const areaPrice = calculateArea(area)
+  const roomWaterPrice = calculateRoomWater(equipments)
+  const bedroomPrice = calculateBedroom(equipments)
+  const windowPrice = calculateWindow(windows)
+  const entryDoorPrice = calculateEntryDoor(door)
+  const shutterPrice = calculateShutter(windows)
+  const balconyPrice = calculateBalcony(equipments)
+  const roofingPrice = calculateRoofing(roofing, area)
+
+  return areaPrice + roomWaterPrice + windowPrice + entryDoorPrice + shutterPrice + balconyPrice + roofingPrice + bedroomPrice
+}

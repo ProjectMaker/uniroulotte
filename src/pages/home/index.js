@@ -7,14 +7,7 @@ import Sidebar from './sidebar'
 import Panels from './panels'
 
 import {
-  calculateArea,
-  calculateBalcony,
-  calculateBedroom,
-  calculateEntryDoor,
-  calculateRoofing,
-  calculateRoomWater,
-  calculateShutter,
-  calculateWindow
+  calculatePrice
 } from "../../api/quotation"
 
 const styles = {
@@ -30,35 +23,26 @@ const styles = {
 }
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      area: {
-        largeur: 2,
-        longueur: 4
-      },
-      equipments: [],
-      door: {
-        type: 'full'
-      },
-      windows: [],
-      roofing: {
-        label: 'Tôles plates galvanisées',
-        value: 'tolegalva'
-      },
-      price: 0,
-      hasChange: false
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.hasChange) {
-      this.calculatePrice()
-    }
+  state = {
+    area: {
+      largeur: 2,
+      longueur: 4
+    },
+    equipments: [],
+    door: {
+      type: 'full'
+    },
+    windows: [],
+    roofing: {
+      label: 'Tôles plates galvanisées',
+      value: 'tolegalva'
+    },
+    price: 0
   }
 
   componentDidMount() {
-    this.calculatePrice()
+    const price = calculatePrice({...this.state})
+    this.setState({price})
   }
 
   render() {
@@ -108,21 +92,14 @@ class Home extends Component {
     )
   }
 
-  calculatePrice() {
-    const area = calculateArea(this.state.area)
-    const roomWater = calculateRoomWater(this.state.equipments)
-    const bedroom = calculateBedroom(this.state.equipments)
-    const window = calculateWindow(this.state.windows)
-    const entryDoor = calculateEntryDoor(this.state.door)
-    const shutter = calculateShutter(this.state.windows)
-    const balcony = calculateBalcony(this.state.equipments)
-    const roofing = calculateRoofing(this.state.roofing, this.state.area)
-    const price = area + roomWater + window + entryDoor + shutter + balcony + roofing + bedroom
-    this.setState({price, hasChange: false})
-  }
-
   handleChange(item, value) {
-    this.setState({[item]: value, hasChange: true})
+    this.setState(
+      () => ({[item]: value}),
+      () => {
+        const price = calculatePrice({...this.state})
+        this.setState({price})
+      }
+    )
   }
 }
 
