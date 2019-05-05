@@ -5,9 +5,6 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import {withStyles} from '@material-ui/core/styles'
 import Typography from "@material-ui/core/Typography/Typography"
-import {withRouter} from 'react-router-dom'
-import {sendDemand} from "../../api/quotation"
-import ModalError from "../shared/modal-error"
 
 const styles = theme => ({
   fields: {
@@ -88,12 +85,9 @@ const validateFields = (fields) => {
 
 class Validation extends Component {
   static propTypes = {
-    price: PropTypes.number.isRequired,
-    area: PropTypes.object.isRequired,
-    equipments: PropTypes.array.isRequired,
-    windows: PropTypes.array.isRequired,
-    door: PropTypes.object.isRequired,
-    roofing: PropTypes.object.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    sendingInProgress: PropTypes.bool.isRequired,
+    sendingInError: PropTypes.bool.isRequired
   }
 
   state = {
@@ -116,9 +110,7 @@ class Validation extends Component {
     phoneNumber: {
       value: '',
       error: false
-    },
-    apiOnError: false,
-    apiCalled: false
+    }
   }
 
   validateForm = () => {
@@ -151,25 +143,16 @@ class Validation extends Component {
       })
     } else {
       const {firstname, lastname, email, phoneNumber} = this.state
-      const {area, equipments, windows, door, roofing} = this.props
-      const detail = {area, equipments, windows, door, roofing}
-      this.setState({apiCalled: true})
-      sendDemand(email.value, firstname.value, lastname.value, phoneNumber.value, this.props.price.toLocaleString(), detail)
-        .then(res => this.props.history.push('/confirm'))
-        .catch(err => this.setState({apiOnError: true}))
+      const {onSubmit} = this.props
+      onSubmit(firstname.value, lastname.value, email.value, phoneNumber.value)
     }
   }
 
   render() {
-    const {classes} = this.props
-    const {email, emailConfirm, lastname, firstname, phoneNumber, apiCalled} = this.state
+    const {classes, sendingInProgress} = this.props
+    const {email, emailConfirm, lastname, firstname, phoneNumber} = this.state
     return (
       <div>
-        <ModalError
-          open={this.state.apiOnError}
-          onClose={() => this.setState({apiOnError: false, apiCalled: false})}
-          description="Un problème est survenu ...."
-        />
         <Typography>Veuillez remplir les champs ci-dessous afin de recevoir votre devis</Typography>
         <div className={classes.fields}>
           <div className={classes.field}>
@@ -264,7 +247,7 @@ class Validation extends Component {
               : null}
           </div>
         </div>
-        {!apiCalled ?
+        {!sendingInProgress ?
           <Button variant="contained" color="primary" className={classes.button} onClick={() => this.handleValid()}>
             Envoyer la demande de devis
           </Button>
@@ -276,4 +259,4 @@ class Validation extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(Validation))
+export default withStyles(styles)(Validation)
