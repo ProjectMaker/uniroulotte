@@ -7,7 +7,7 @@ import {withStyles} from '@material-ui/core/styles'
 import Typography from "@material-ui/core/Typography/Typography"
 import {withRouter} from 'react-router-dom'
 import {sendDemand} from "../../api/quotation"
-import ModalError from "./modal"
+import ModalError from "../shared/modal-error"
 
 const styles = theme => ({
   fields: {
@@ -165,7 +165,11 @@ class Validation extends Component {
     const {email, emailConfirm, lastname, firstname, phoneNumber, apiCalled} = this.state
     return (
       <div>
-        <ModalError open={this.state.apiOnError} onClose={() => this.setState({apiOnError: false, apiCalled: false})}/>
+        <ModalError
+          open={this.state.apiOnError}
+          onClose={() => this.setState({apiOnError: false, apiCalled: false})}
+          description="Un problème est survenu ...."
+        />
         <Typography>Veuillez remplir les champs ci-dessous afin de recevoir votre devis</Typography>
         <div className={classes.fields}>
           <div className={classes.field}>

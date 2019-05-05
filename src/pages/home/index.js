@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/core/styles';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 
-import Validation from '../../components/validation'
+import Validation from '../../components/shipping-form'
 import Sidebar from './sidebar'
 import Panels from './panels'
 
