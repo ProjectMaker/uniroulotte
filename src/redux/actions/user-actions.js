@@ -6,7 +6,7 @@ import {
   SIGNOUT_USER_SUCCESS,
   RETRIEVE_CURRENT_USER,
   RETRIEVE_CURRENT_USER_SUCCESS
-} from '../constants'
+} from '../../constants'
 
 
 export const signinUser = (email, password) => {

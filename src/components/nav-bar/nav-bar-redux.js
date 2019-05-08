@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import NavBar from './nav-bar'
-import {signoutUser} from "../../actions/user-actions"
+import {signoutUser} from "../../redux/actions/user-actions"
 
 const mapStateToProps = (state) => ({
   user: state.user

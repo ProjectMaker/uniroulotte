@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import {
   signinUser
-} from '../../../actions/user-actions'
+} from '../../../redux/actions/user-actions'
 
 import Signin from './login'
 

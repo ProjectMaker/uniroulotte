@@ -6,7 +6,7 @@ import {
   SIGNOUT_USER_SUCCESS,
   RETRIEVE_CURRENT_USER,
   RETRIEVE_CURRENT_USER_SUCCESS
-} from '../constants'
+} from '../../constants'
 
 const INITIAL_STATE = {
   isFetched: false,
@@ -53,13 +53,14 @@ export default (state = INITIAL_STATE, action) => {
     case SIGNOUT_USER:
       return {
         ...state,
-        isLoading: false
+        isLoading: true
       }
     case SIGNOUT_USER_SUCCESS:
       return {
         ...state,
         data: null,
-        isLoading: true,
+        isLoading: false,
+        isFetched: false,
         error: null
       }
     case 'REQUEST_USER':

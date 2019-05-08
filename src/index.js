@@ -5,7 +5,7 @@ import {MuiThemeProvider} from "@material-ui/core"
 
 import * as serviceWorker from './serviceWorker'
 import {theme} from "./theme"
-import {defaultStore} from "./stores"
+import {defaultStore} from "./redux/stores"
 import AppRouter from "./routes"
 import './index.css'
 
