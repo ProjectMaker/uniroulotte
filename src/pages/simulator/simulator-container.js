@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from 'react'
 
-import Quotation from './quotation'
+import Simulator from './simulator'
 import ModalError from "../../components/shared/modal-error";
 import {
   calculatePrice, sendDemand
 } from "../../api/quotation"
 
-class QuotationContainer extends Component {
+class SimulatorContainer extends Component {
   state = {
     area: {
       largeur: 2,
@@ -64,7 +64,7 @@ class QuotationContainer extends Component {
           onClose={() => this.setState({sendingInError: false})}
           description="Un problème est survenu ...."
         />
-        <Quotation
+        <Simulator
           area={area}
           equipments={equipments}
           door={door}
@@ -80,4 +80,4 @@ class QuotationContainer extends Component {
   }
 }
 
-export default QuotationContainer
+export default SimulatorContainer

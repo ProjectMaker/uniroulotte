@@ -5,9 +5,9 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 import ShippingFormContainer from './shipping-form/shipping-form-container'
 import SimulatorForm from './simulator-form/simulator-form'
 import Summary from './summary/summary'
-import styles from './quotation-styles'
+import styles from './simulator-styles'
 
-const Quotation = ({classes,
+const Simulator = ({classes,
                      area,
                      equipments,
                      door,
@@ -57,4 +57,4 @@ const Quotation = ({classes,
   </Grid>
 )
 
-export default withStyles(styles)(Quotation)
+export default withStyles(styles)(Simulator)
