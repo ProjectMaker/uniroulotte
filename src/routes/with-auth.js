@@ -39,7 +39,7 @@ export default (WrappedComponent) => {
 
     render() {
       const {profile, redirect, isLoading, isFetched, ...props} = this.props
-      if (!(isLoading && isFetched)) {
+      if (!(!isLoading && isFetched)) {
         return this.renderLoader()
       }
       return profile ? <WrappedComponent {...props} /> : null

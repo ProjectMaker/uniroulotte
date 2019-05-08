@@ -26,15 +26,15 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetched: true,
-        isLoading: true,
+        isLoading: false,
         error: null,
         data: action.user
       }
     case SIGNIN_USER_ERROR:
       return {
         ...state,
-        isFetched: true,
-        isLoading: true,
+        isFetched: false,
+        isLoading: false,
         error: action.error
       }
     case RETRIEVE_CURRENT_USER:
@@ -46,7 +46,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetched: true,
-        isLoading: true,
+        isLoading: false,
         data: action.user,
         error: null
       }

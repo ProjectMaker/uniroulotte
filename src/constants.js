@@ -47,3 +47,50 @@ export const WINDOWS = [
   {label: 'Rectangulaire', value: 'rectangular'},
   {label: 'Cintrée', value: 'arch'}
 ]
+
+export const SHIPPING_FORM_VALIDATORS = {
+  email: {
+    email: {
+      message: 'L\' email n\' est pas valide'
+    }
+  },
+  emailConfirm: {
+    equality: {
+      attribute: "email",
+      message: 'Les emails doivent être identiques'
+    },
+  },
+  firstname: {
+    length: {
+      minimum: 1,
+      tooShort: 'Le prénom est obligatoire'
+    }
+  },
+  lastname: {
+    presence: {
+      allowEmpty: false,
+      message: 'Le nom est obligatoire'
+    }
+  },
+  phoneNumber: {
+    format: {
+      pattern: "[0-9]*",
+      flags: "i",
+      message: "Le numéro de téléphone ne doit contenir que des chiffres"
+    }
+  }
+}
+
+export const SIGNIN_FORM_VALIDATORS = {
+  email: {
+    email: {
+      message: 'L\' email n\' est pas valide'
+    }
+  },
+  password: {
+    length: {
+      minimum: 5,
+      tooShort: 'Le mot de passe doit contenir au minimum 8 caractères'
+    }
+  }
+}
