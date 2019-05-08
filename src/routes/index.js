@@ -6,9 +6,9 @@ import {
 
 import DevisList from '../pages/list'
 import AccountLogin from '../pages/account/login'
-import Simulator from '../pages/simulator/simulator-container'
-import Confirm from '../pages/confirm/confirm'
-import NavBar from '../components/nav-bar/nav-bar-redux'
+import Simulator from '../pages/simulator'
+import Confirm from '../pages/confirm'
+import NavBar from '../components/nav-bar'
 import withAuth from './with-auth'
 import browserHistory from './history'
 

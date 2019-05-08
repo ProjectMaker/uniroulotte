@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import LoginFormContainer from './login-form/login-form-container'
+import LoginForm from './login-form'
 
 const Login = ({user, signin}) => (
-  <LoginFormContainer
+  <LoginForm
     onSubmit={signin}
     submissionInProgress={user.isLoading}
     submissionError={user.error}

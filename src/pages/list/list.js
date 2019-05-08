@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import {withStyles} from '@material-ui/core/styles'
 import moment from 'moment'
 
-import Basket from '../../components/basket/basket'
+import Basket from '../../components/basket'
 import styles from './list-styles'
 
 

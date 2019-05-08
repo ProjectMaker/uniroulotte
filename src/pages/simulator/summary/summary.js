@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Hidden from "@material-ui/core/Hidden/Hidden"
 
-import Basket from "../../../components/basket/basket"
+import Basket from "../../../components/basket"
 
 const Summary = ({area, equipments, door, windows, roofing}) => (
   <Hidden only={'xs'}>

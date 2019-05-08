@@ -7,10 +7,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from '@material-ui/core/styles'
 
-import Surface from "../../../components/surface/surface";
-import Equipments from "../../../components/equipment/equipment";
-import Opening from "../../../components/opening/opening";
-import Roofing from "../../../components/roofing/roofing";
+import Surface from "../../../components/surface";
+import Equipments from "../../../components/equipment";
+import Opening from "../../../components/opening";
+import Roofing from "../../../components/roofing";
 import styles from './simulator-form-styles'
 
 import {EQUIPMENTS, WINDOWS, ROOFING} from '../../../constants'

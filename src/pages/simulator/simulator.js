@@ -2,9 +2,9 @@ import React from 'react'
 import {withStyles} from '@material-ui/core/styles';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 
-import ShippingFormContainer from './shipping-form/shipping-form-container'
-import SimulatorForm from './simulator-form/simulator-form'
-import Summary from './summary/summary'
+import ShippingFormContainer from './shipping-form'
+import SimulatorForm from './simulator-form'
+import Summary from './summary'
 import styles from './simulator-styles'
 
 const Simulator = ({classes,

@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 
-import OpeningWindow from './window/opening-window'
-import OpeningDoor from './door/opening-door'
+import OpeningWindow from './window'
+import OpeningDoor from './door'
 import styles from './opening-styles'
 
 const Opening = ({classes, door, windows, windowsAvailable, onChangeDoor, onChangeWindows}) => (
