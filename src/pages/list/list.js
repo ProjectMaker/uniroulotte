@@ -13,33 +13,11 @@ import Basket from '../../components/basket/basket'
 import styles from './list-styles'
 
 
-class DevisList extends Component {
+class QuotationList extends Component {
   static propTypes = {
     quotations: PropTypes.array,
-    isLoading: PropTypes.bool.isRequired,
-    isFetched: PropTypes.bool.isRequired,
-    error: PropTypes.string,
-    fetchQuotations: PropTypes.func.isRequired
-  }
-  state = {
-    quotations: {
-      isLoading: true,
-      data: []
-    },
-    quotationSelected: null
-  }
-
-  handleSelectQuotation = (quotation) => {
-    const {quotationSelected} = this.state
-    if (quotationSelected && quotation._id === quotationSelected._id ) {
-      this.setState({quotationSelected: null})
-    } else {
-      this.setState({quotationSelected: quotation})
-    }
-  }
-
-  componentDidMount() {
-    this.props.fetchQuotations()
+    selection: PropTypes.object,
+    onSelect: PropTypes.func.isRequired
   }
 
   render() {
@@ -69,7 +47,7 @@ class DevisList extends Component {
   }
 
   renderQuotations () {
-    const {classes, quotations} = this.props
+    const {classes, quotations, selection, onSelect} = this.props
     return quotations.map((quotation) => (
       <React.Fragment key={`${quotation._id}`}>
         <TableRow>
@@ -79,9 +57,9 @@ class DevisList extends Component {
           <TableCell>{quotation.phoneNumber}</TableCell>
           <TableCell>{quotation.price.toLocaleString()}</TableCell>
           <TableCell>{moment(quotation.createdAt).format('YYYY/MM/DD')}</TableCell>
-          <TableCell onClick={() => this.handleSelectQuotation(quotation)} className={classes.tableCellAction}>Voir le détail</TableCell>
+          <TableCell onClick={() => onSelect(quotation)} className={classes.tableCellAction}>Voir le détail</TableCell>
         </TableRow>
-        {this.state.quotationSelected === quotation ?
+        {selection === quotation ?
           <TableRow>
             <TableCell colSpan={7}>
               <Basket {...quotation.detail} />
@@ -94,4 +72,4 @@ class DevisList extends Component {
 }
 
 
-export default withStyles(styles)(DevisList)
+export default withStyles(styles)(QuotationList)

@@ -32,7 +32,7 @@ export default (WrappedComponent) => {
     checkAndRedirect() {
       const { profile, isLoading, redirect } = this.props
 
-      if (isLoading && !profile) {
+      if (!isLoading && !profile) {
         redirect()
       }
     }

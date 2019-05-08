@@ -3,7 +3,7 @@ import {
   fetchQuotations
 } from '../../redux/actions/quotation-actions'
 
-import List from './list'
+import List from './list-container'
 
 const mapStateToProps = (state) => ({
   quotations: state.quotation.quotations,
