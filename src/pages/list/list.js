@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -8,12 +9,18 @@ import Paper from '@material-ui/core/Paper'
 import {withStyles} from '@material-ui/core/styles'
 import moment from 'moment'
 
-import {list} from '../../api/quotation'
 import Basket from '../../components/basket/basket'
 import styles from './list-styles'
 
 
 class DevisList extends Component {
+  static propTypes = {
+    quotations: PropTypes.array,
+    isLoading: PropTypes.bool.isRequired,
+    isFetched: PropTypes.bool.isRequired,
+    error: PropTypes.string,
+    fetchQuotations: PropTypes.func.isRequired
+  }
   state = {
     quotations: {
       isLoading: true,
@@ -32,10 +39,7 @@ class DevisList extends Component {
   }
 
   componentDidMount() {
-    this.setState({quotations: {isLoading: true, data: []}})
-    list()
-      .then(quotations => this.setState({quotations: {isLoading: false, data: quotations}}))
-      .catch(() => this.setState({quotations: {isLoading: false, data: []}}))
+    this.props.fetchQuotations()
   }
 
   render() {
@@ -65,9 +69,8 @@ class DevisList extends Component {
   }
 
   renderQuotations () {
-    const {classes} = this.props
-    const {quotations} = this.state
-    return quotations.data.map((quotation) => (
+    const {classes, quotations} = this.props
+    return quotations.map((quotation) => (
       <React.Fragment key={`${quotation._id}`}>
         <TableRow>
           <TableCell>{quotation.firstname}</TableCell>

@@ -4,7 +4,7 @@ import {
   Route,
 } from 'react-router-dom'
 
-import DevisList from '../pages/list/list'
+import DevisList from '../pages/list/list-redux'
 import AccountLogin from '../pages/account/login/login-redux'
 import Simulator from '../pages/simulator/simulator-container'
 import Confirm from '../pages/confirm/confirm'
