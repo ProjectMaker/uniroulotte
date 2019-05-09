@@ -1,10 +1,11 @@
 import React from 'react'
 import {withStyles} from '@material-ui/core/styles';
 import {Grid, Row, Col} from 'react-flexbox-grid';
+import Hidden from "@material-ui/core/Hidden/Hidden"
 
 import ShippingFormContainer from './shipping-form'
 import SimulatorForm from './simulator-form'
-import Summary from './summary'
+import Basket from '../../components/basket'
 import styles from './simulator-styles'
 
 const Simulator = ({classes,
@@ -44,12 +45,14 @@ const Simulator = ({classes,
             </div>
           </Col>
           <Col md={3} className={classes.sidebar}>
-            <Summary
-              area={area}
-              equipments={equipments}
-              door={door}
-              windows={windows}
-              roofing={roofing}/>
+            <Hidden only={'xs'}>
+              <Basket
+                area={area}
+                equipments={equipments}
+                door={door}
+                windows={windows}
+                roofing={roofing}/>
+            </Hidden>
           </Col>
         </Row>
       </Col>

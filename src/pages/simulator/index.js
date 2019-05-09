@@ -1,1 +1,1 @@
-export { default } from './simulator-container'
+export { default } from './simulator-redux'

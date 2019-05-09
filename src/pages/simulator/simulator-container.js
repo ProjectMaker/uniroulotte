@@ -1,43 +1,31 @@
 import React, {Component, Fragment} from 'react'
+import PropTypes from 'prop-types'
 
 import Simulator from './simulator'
 import ModalError from "../../components/shared/modal-error";
 import {
-  calculatePrice, sendDemand
+  sendDemand
 } from "../../api/quotation"
 
 class SimulatorContainer extends Component {
+  static propTypes = {
+    area: PropTypes.object.isRequired,
+    equipments: PropTypes.array.isRequired,
+    door: PropTypes.object.isRequired,
+    windows: PropTypes.array.isRequired,
+    roofing: PropTypes.object.isRequired,
+    changeSimulation: PropTypes.func.isRequired,
+    calculatePrice: PropTypes.func.isRequired,
+    resetSimulation: PropTypes.func.isRequired,
+    price: PropTypes.number.isRequired
+  }
   state = {
-    area: {
-      largeur: 2,
-      longueur: 4
-    },
-    equipments: [],
-    door: {
-      type: 'full'
-    },
-    windows: [],
-    roofing: {
-      label: 'Tôles plates galvanisées',
-      value: 'tolegalva'
-    },
-    price: 0,
     sendingInProgress: false,
     sendingInError: false
   }
 
-  handleChangeQuotation = (item, value) => {
-    this.setState(
-      () => ({[item]: value}),
-      () => {
-        const price = calculatePrice({...this.state})
-        this.setState({price})
-      }
-    )
-  }
-
   sendQuotation = (firstname, lastname, email, phoneNumber) => {
-    const {area, equipments, windows, door, roofing, price} = this.state
+    const {area, equipments, windows, door, roofing, price} = this.props
     const detail = {area, equipments, windows, door, roofing}
     this.setState({sendingInProgress: true})
     sendDemand(email, firstname, lastname, phoneNumber, price.toLocaleString(), detail)
@@ -51,12 +39,15 @@ class SimulatorContainer extends Component {
   }
 
   componentDidMount() {
-    const price = calculatePrice({...this.state})
-    this.setState({price})
+    this.props.calculatePrice()
   }
 
+  componentWillUnmount() {
+    this.props.resetSimulation()
+  }
   render() {
-    const {area, equipments, door, windows, roofing, sendingInProgress, sendingInError} = this.state
+    const {area, equipments, door, windows, roofing, changeSimulation } = this.props
+    const {sendingInError, sendingInProgress} = this.state
     return (
       <Fragment>
         <ModalError
@@ -70,7 +61,7 @@ class SimulatorContainer extends Component {
           door={door}
           windows={windows}
           roofing={roofing}
-          onChange={this.handleChangeQuotation}
+          onChange={changeSimulation}
           onSubmit={this.sendQuotation}
           submissionInProgress={sendingInProgress}
           submissionError={sendingInError}

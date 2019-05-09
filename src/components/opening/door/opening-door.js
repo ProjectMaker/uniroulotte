@@ -33,8 +33,7 @@ class OpeningDoor extends Component {
 
   handleChangeDoorType = ({value: type}) => {
     const {onChange, door} = this.props
-    door.type = type
-    onChange(door)
+    onChange({...door, type})
     this.setState({itemChecked: radioDoors.find(door => door.value === type)})
   }
 
