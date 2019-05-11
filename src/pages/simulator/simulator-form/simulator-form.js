@@ -18,34 +18,35 @@ import {EQUIPMENTS, WINDOWS, ROOFING} from '../../../constants'
 class SimulatorForm extends Component {
   static propTypes = {
     area: PropTypes.object.isRequired,
-    onChangeArea: PropTypes.func.isRequired,
     equipments: PropTypes.array.isRequired,
-    onChangeEquipments: PropTypes.func.isRequired,
     windows: PropTypes.array.isRequired,
-    onChangeWindows: PropTypes.func.isRequired,
     door: PropTypes.object.isRequired,
-    onChangeDoor: PropTypes.func.isRequired,
     roofing: PropTypes.object.isRequired,
-    onChangeRoofing: PropTypes.func.isRequired
+    changeSimulation: PropTypes.func.isRequired
   }
 
   state = {
     expanded: ''
   }
 
+  handleExpandPanel = (panel) => {
+    const {expanded} = this.state
+    if (panel === expanded) {
+      this.setState({expanded: ''})
+    } else {
+      this.setState({expanded: panel})
+    }
+  }
+
   render() {
     const {expanded} = this.state
     const {
       area,
-      onChangeArea,
       equipments,
-      onChangeEquipments,
       windows,
-      onChangeWindows,
       door,
-      onChangeDoor,
       roofing,
-      onChangeRoofing
+      changeSimulation
     } = this.props
     return (
       <div>
@@ -57,7 +58,7 @@ class SimulatorForm extends Component {
             <div style={{width: '100%'}}>
               <Surface
                 area={area}
-                onChange={(area) => onChangeArea(area)}/>
+                onChange={(area) => changeSimulation('area', area)}/>
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -70,7 +71,7 @@ class SimulatorForm extends Component {
               <Equipments
                 items={EQUIPMENTS}
                 itemsSelected={equipments}
-                onChange={(items) => onChangeEquipments(items)}/>
+                onChange={(items) => changeSimulation('equipments', items)}/>
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -82,10 +83,10 @@ class SimulatorForm extends Component {
             <div style={{width: '100%'}}>
               <Opening
                 door={door}
-                onChangeDoor={(door) => onChangeDoor(door)}
+                onChangeDoor={(door) => changeSimulation('door', door)}
                 windows={windows}
                 windowsAvailable={WINDOWS}
-                onChangeWindows={(windows) => onChangeWindows(windows)}/>
+                onChangeWindows={(windows) => changeSimulation('windows', windows)}/>
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -98,21 +99,12 @@ class SimulatorForm extends Component {
               <Roofing
                 items={ROOFING}
                 itemSelected={roofing}
-                onChange={(item) => onChangeRoofing(item)}/>
+                onChange={(item) => changeSimulation('roofing',item)}/>
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
     )
-  }
-
-  handleExpandPanel(panel) {
-    const {expanded} = this.state
-    if (panel === expanded) {
-      this.setState({expanded: ''})
-    } else {
-      this.setState({expanded: panel})
-    }
   }
 }
 

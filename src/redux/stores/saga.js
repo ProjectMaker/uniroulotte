@@ -1,15 +1,19 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeEvery, select } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 import jwtDecode from 'jwt-decode'
 
 import {login} from '../../api/user'
-import {list} from '../../api/quotation'
+import {list, sendDemand} from '../../api/quotation'
 import localstorage from '../../api/localstorage'
 import {
   SIGNIN_USER,
   RETRIEVE_CURRENT_USER,
   SIGNOUT_USER ,
-  FETCH_QUOTATIONS
+  FETCH_QUOTATIONS,
+  SEND_SIMULATION,
+  SEND_SIMULATION_START,
+  SEND_SIMULATION_SUCCESS,
+  SEND_SIMULATION_ERROR
 } from '../../constants'
 import {
   signinUserSuccess,
@@ -42,8 +46,18 @@ const callQuotationsList = async () => {
   return {error, quotations}
 }
 
+const sendSimulationFromApi = async (firstname, lastname, email, phoneNumber, price, detail) => {
+  let error = null
+  try {
+    await sendDemand(email, firstname, lastname, phoneNumber, price, detail)
+  } catch (err) {
+    error = 'Erreur système'
+  }
+  return {error}
+}
+
 export default function* rootSaga() {
-  yield all([signinUser(), retrieveCurrentUser(), signoutUser(), fetchQuotations()])
+  yield all([signinUser(), retrieveCurrentUser(), signoutUser(), fetchQuotations(), sendSimulation()])
 }
 
 export function* signinUser() {
@@ -60,6 +74,10 @@ export function* retrieveCurrentUser() {
 
 export function* fetchQuotations() {
   yield takeEvery(FETCH_QUOTATIONS, makeFetchQuotations)
+}
+
+export function* sendSimulation() {
+  yield takeEvery(SEND_SIMULATION, makeSendSimulation)
 }
 export function* makeSigninUser({type, credentials}) {
   const {error, token} = yield call(fetchUser, credentials)
@@ -94,5 +112,21 @@ export function* makeFetchQuotations() {
     yield put(fetchQuotationsError('Erreur système'))
   } else {
     yield put(fetchQuotationsSuccess(quotations))
+  }
+}
+
+export function* makeSendSimulation({type, user}) {
+  yield put({type: SEND_SIMULATION_START})
+
+  const {firstname, lastname, email, phoneNumber} = user
+  const simulation = yield select((state) => state.simulator)
+  const {area, equipments, windows, door, roofing, price} = simulation
+  const detail = {area, equipments, windows, door, roofing}
+  const {error} = yield call(sendSimulationFromApi, firstname, lastname, email, phoneNumber, price.toLocaleString(), detail)
+  if (error) {
+    yield put({type: SEND_SIMULATION_ERROR, error})
+  } else {
+    yield put({type: SEND_SIMULATION_SUCCESS})
+    yield put(push('/confirm'))
   }
 }

@@ -1,7 +1,8 @@
 import {
   CHANGE_SIMULATION_PROCESS,
   CALCULATE_SIMULATION_PRICE,
-  RESET_SIMULATION
+  RESET_SIMULATION,
+  SEND_SIMULATION
 } from '../../constants'
 
 export const changeSimulation = (key, value) => (dispatch) => {
@@ -30,3 +31,11 @@ export const resetSimulation = () => {
     type: RESET_SIMULATION
   }
 }
+
+export const sendSimulation = (user) => {
+  return {
+    type: SEND_SIMULATION,
+    user
+  }
+}
+

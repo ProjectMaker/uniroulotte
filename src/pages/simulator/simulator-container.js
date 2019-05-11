@@ -2,10 +2,7 @@ import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
 
 import Simulator from './simulator'
-import ModalError from "../../components/shared/modal-error";
-import {
-  sendDemand
-} from "../../api/quotation"
+import ModalError from '../../components/shared/modal-error'
 
 class SimulatorContainer extends Component {
   static propTypes = {
@@ -17,42 +14,40 @@ class SimulatorContainer extends Component {
     changeSimulation: PropTypes.func.isRequired,
     calculatePrice: PropTypes.func.isRequired,
     resetSimulation: PropTypes.func.isRequired,
-    price: PropTypes.number.isRequired
+    price: PropTypes.number.isRequired,
+    sendSimulation: PropTypes.func.isRequired,
+    sendingInProgress: PropTypes.bool.isRequired,
+    sendingError: PropTypes.string
   }
   state = {
-    sendingInProgress: false,
-    sendingInError: false
+    showModalError: false
   }
 
-  sendQuotation = (firstname, lastname, email, phoneNumber) => {
-    const {area, equipments, windows, door, roofing, price} = this.props
-    const detail = {area, equipments, windows, door, roofing}
-    this.setState({sendingInProgress: true})
-    sendDemand(email, firstname, lastname, phoneNumber, price.toLocaleString(), detail)
-      .then(res => {
-        this.setState(
-          () => ({sendingInError: false, sendingInProgress: false}),
-          () => this.props.history.push('/confirm')
-        )
-      })
-      .catch(err => this.setState({sendingInError: true, sendingInProgress: false}))
+  handleSendSimulation = (firstname, lastname, email, phoneNumber) => {
+    this.props.sendSimulation({firstname, lastname, email, phoneNumber})
   }
 
   componentDidMount() {
     this.props.calculatePrice()
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.sendingError !== this.props.sendingError) {
+      this.setState({showModalError: true})
+    }
+  }
+
   componentWillUnmount() {
     this.props.resetSimulation()
   }
   render() {
-    const {area, equipments, door, windows, roofing, changeSimulation } = this.props
-    const {sendingInError, sendingInProgress} = this.state
+    const {area, equipments, door, windows, roofing, changeSimulation, sendingInProgress } = this.props
+    const {showModalError} = this.state
     return (
       <Fragment>
         <ModalError
-          open={sendingInError}
-          onClose={() => this.setState({sendingInError: false})}
+          open={showModalError}
+          onClose={() => this.setState({showModalError: false})}
           description="Un problème est survenu ...."
         />
         <Simulator
@@ -62,9 +57,8 @@ class SimulatorContainer extends Component {
           windows={windows}
           roofing={roofing}
           onChange={changeSimulation}
-          onSubmit={this.sendQuotation}
+          onSubmit={this.handleSendSimulation}
           submissionInProgress={sendingInProgress}
-          submissionError={sendingInError}
         />
       </Fragment>
     )

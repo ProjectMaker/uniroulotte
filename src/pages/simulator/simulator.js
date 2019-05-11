@@ -16,30 +16,18 @@ const Simulator = ({classes,
                      roofing,
                      onChange,
                      onSubmit,
-                     submissionInProgress,
-                     submissionError}) => (
+                     submissionInProgress}) => (
   <Grid className={classes.grid}>
     <Row around={"md"}>
       <Col xs={12} md={9}>
         <Row>
           <Col xs={12} md={9}>
-            <SimulatorForm
-              area={area}
-              onChangeArea={(area) => onChange('area', area)}
-              equipments={equipments}
-              onChangeEquipments={(equipments) => onChange('equipments', equipments)}
-              windows={windows}
-              onChangeWindows={(windows) => onChange('windows', windows)}
-              door={door}
-              onChangeDoor={(door) => onChange('door', door)}
-              roofing={roofing}
-              onChangeRoofing={(roofing) => onChange('roofing', roofing)}/>
+            <SimulatorForm />
             <div className={classes.validation}>
               <div style={{width: '100%'}}>
                 <ShippingFormContainer
                   onSubmit={onSubmit}
                   submissionInProgress={submissionInProgress}
-                  submissionError={submissionError}
                 />
               </div>
             </div>

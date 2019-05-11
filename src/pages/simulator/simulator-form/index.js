@@ -1,1 +1,1 @@
-export { default } from './simulator-form'
+export { default } from './simulator-form-redux'

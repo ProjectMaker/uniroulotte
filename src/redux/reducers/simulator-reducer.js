@@ -5,7 +5,10 @@ import {
 import {
   CHANGE_SIMULATION_PROCESS,
   CALCULATE_SIMULATION_PRICE,
-  RESET_SIMULATION
+  RESET_SIMULATION,
+  SEND_SIMULATION_START,
+  SEND_SIMULATION_SUCCESS,
+  SEND_SIMULATION_ERROR,
 } from '../../constants'
 
 const INITIAL_STATE = {
@@ -24,7 +27,7 @@ const INITIAL_STATE = {
   },
   price: 0,
   sendingInProgress: false,
-  sendingError: false
+  sendingError: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -42,6 +45,24 @@ export default (state = INITIAL_STATE, action) => {
       }
     case RESET_SIMULATION:
       return INITIAL_STATE
+    case SEND_SIMULATION_START:
+      return {
+        ...state,
+        sendingInProgress: true,
+        sendingError: null
+      }
+    case SEND_SIMULATION_SUCCESS:
+      return {
+        ...state,
+        sendingInProgress: false,
+        sendingError: null
+      }
+    case SEND_SIMULATION_ERROR:
+      return {
+        ...state,
+        sendingInProgress: false,
+        sendingError: action.error
+      }
     default:
       return state
   }

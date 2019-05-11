@@ -7,8 +7,7 @@ import { SHIPPING_FORM_VALIDATORS } from '../../../constants'
 export default class ShippingFormContainer extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    submissionInProgress: PropTypes.bool.isRequired,
-    submissionError: PropTypes.bool.isRequired
+    submissionInProgress: PropTypes.bool.isRequired
   }
 
   handleSubmit = (fields) => {
