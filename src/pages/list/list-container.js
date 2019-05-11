@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+
 import QuotationList from './list'
+import LoaderFullScreen from '../../components/shared/loader/full-screen'
 
 class QuotationListContainer extends Component {
   static propTypes = {
@@ -28,9 +30,9 @@ class QuotationListContainer extends Component {
   }
 
   render() {
-    const {quotations} = this.props
+    const {quotations, isLoading} = this.props
     const {quotationSelected} = this.state
-    return (
+    return isLoading ? <LoaderFullScreen /> : (
       <QuotationList
         quotations={quotations}
         selection={quotationSelected}

@@ -2,16 +2,8 @@ import React, {Component} from "react"
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import {withStyles} from '@material-ui/core/styles'
 
-const styles = {
-  loader: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%'
-  }
-}
+import LoaderFullScreen from '../components/shared/loader/full-screen'
 
 export default (WrappedComponent) => {
   class Authenticate extends Component {
@@ -38,20 +30,11 @@ export default (WrappedComponent) => {
     }
 
     render() {
-      const {profile, redirect, isLoading, isFetched, ...props} = this.props
+      const {profile, isLoading, isFetched, ...props} = this.props
       if (!(!isLoading && isFetched)) {
-        return this.renderLoader()
+        return <LoaderFullScreen />
       }
       return profile ? <WrappedComponent {...props} /> : null
-    }
-
-    renderLoader() {
-      const {classes} = this.props
-      return (
-        <div className={classes.loader}>
-          <CircularProgress />
-        </div>
-      )
     }
   }
 
@@ -69,8 +52,5 @@ export default (WrappedComponent) => {
     }
   }
 
-  return withStyles(styles)(connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Authenticate))
+  return connect(mapStateToProps, mapDispatchToProps)(Authenticate)
 }
