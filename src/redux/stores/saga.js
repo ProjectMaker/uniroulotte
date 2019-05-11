@@ -7,41 +7,43 @@ import {list, sendDemand} from '../../api/quotation'
 import localstorage from '../../api/localstorage'
 import {
   SIGNIN_USER,
+  SIGNIN_USER_START,
+  SIGNIN_USER_SUCCESS,
+  SIGNIN_USER_ERROR,
   RETRIEVE_CURRENT_USER,
-  SIGNOUT_USER ,
+  RETRIEVE_CURRENT_USER_SUCCESS,
+  SIGNOUT_USER,
+  SIGNOUT_USER_SUCCESS,
   FETCH_QUOTATIONS,
+  FETCH_QUOTATIONS_START,
+  FETCH_QUOTATIONS_SUCCESS,
+  FETCH_QUOTATIONS_ERROR,
   SEND_SIMULATION,
   SEND_SIMULATION_START,
   SEND_SIMULATION_SUCCESS,
   SEND_SIMULATION_ERROR
 } from '../../constants'
-import {
-  signinUserSuccess,
-  signinUserError,
-  retrieveCurrentUserSuccess,
-  signoutUserSuccess
-} from '../actions/user-actions'
-import {
-  fetchQuotationsSuccess,
-  fetchQuotationsError
-} from "../actions/quotation-actions"
 
-const fetchUser = async (credentials) => {
+const fetchUserFromApi = async (credentials) => {
   let error, token = null
   try {
     token = await login(credentials)
   } catch (err) {
-    error = err
+    if (err.response && err.response.status === 404) {
+      error = 'Utilisateur non trouvé'
+    } else {
+      error = 'Erreur système'
+    }
   }
   return {error, token}
 }
 
-const callQuotationsList = async () => {
+const fetchQuotationsFromApi = async () => {
   let error, quotations = null
   try {
     quotations = await list()
   } catch (err) {
-    error = err
+    error = 'Erreur système'
   }
   return {error, quotations}
 }
@@ -79,39 +81,40 @@ export function* fetchQuotations() {
 export function* sendSimulation() {
   yield takeEvery(SEND_SIMULATION, makeSendSimulation)
 }
+
 export function* makeSigninUser({type, credentials}) {
-  const {error, token} = yield call(fetchUser, credentials)
+  yield put({type: SIGNIN_USER_START})
+
+  const {error, token} = yield call(fetchUserFromApi, credentials)
   if (error) {
-    if (error.response && error.response.status === 404) {
-      yield put(signinUserError('Utilisateur non trouvé'))
-    } else {
-      yield put(signinUserError('Erreur système'))
-    }
+    yield put({type: SIGNIN_USER_ERROR, error})
   } else {
     const user = jwtDecode(token)
     yield localstorage.addCurrentUser(user)
-    yield put(signinUserSuccess(user))
+    yield put({type: SIGNIN_USER_SUCCESS, user})
     yield put(push('/list'))
   }
 }
 
 export function* makeSignoutUser() {
   yield localstorage.clear()
-  yield put(signoutUserSuccess())
+  yield put({type: SIGNOUT_USER_SUCCESS})
   yield put(push('/account/login'))
 }
 
 export function* makeRetrieveCurrentUser() {
   const user = yield localstorage.getCurrentUser()
-  yield put(retrieveCurrentUserSuccess(user))
+  yield put({type: RETRIEVE_CURRENT_USER_SUCCESS, user})
 }
 
 export function* makeFetchQuotations() {
-  const {error, quotations} = yield call(callQuotationsList)
+  yield put({type: FETCH_QUOTATIONS_START})
+
+  const {error, quotations} = yield call(fetchQuotationsFromApi)
   if (error) {
-    yield put(fetchQuotationsError('Erreur système'))
+    yield put({type: FETCH_QUOTATIONS_ERROR, error})
   } else {
-    yield put(fetchQuotationsSuccess(quotations))
+    yield put({type: FETCH_QUOTATIONS_SUCCESS, quotations})
   }
 }
 

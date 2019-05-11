@@ -1,11 +1,10 @@
 import {
-  SIGNIN_USER,
   SIGNIN_USER_SUCCESS,
   SIGNIN_USER_ERROR,
   SIGNOUT_USER,
   SIGNOUT_USER_SUCCESS,
   RETRIEVE_CURRENT_USER,
-  RETRIEVE_CURRENT_USER_SUCCESS
+  RETRIEVE_CURRENT_USER_SUCCESS, SIGNIN_USER_START
 } from '../../constants'
 
 const INITIAL_STATE = {
@@ -17,7 +16,7 @@ const INITIAL_STATE = {
 
   export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-    case SIGNIN_USER:
+    case SIGNIN_USER_START:
       return {
         ...state,
         isLoading: true

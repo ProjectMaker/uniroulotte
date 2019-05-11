@@ -1,5 +1,5 @@
 import {
-  FETCH_QUOTATIONS,
+  FETCH_QUOTATIONS_START,
   FETCH_QUOTATIONS_SUCCESS,
   FETCH_QUOTATIONS_ERROR
 } from '../../constants'
@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_QUOTATIONS:
+    case FETCH_QUOTATIONS_START:
       return {
         ...state,
         isLoading: true
