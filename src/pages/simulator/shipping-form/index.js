@@ -1,1 +1,1 @@
-export { default } from './shipping-form-container'
+export { default } from './shipping-form-redux'

@@ -15,16 +15,10 @@ class SimulatorContainer extends Component {
     calculatePrice: PropTypes.func.isRequired,
     resetSimulation: PropTypes.func.isRequired,
     price: PropTypes.number.isRequired,
-    sendSimulation: PropTypes.func.isRequired,
-    sendingInProgress: PropTypes.bool.isRequired,
     sendingError: PropTypes.string
   }
   state = {
     showModalError: false
-  }
-
-  handleSendSimulation = (firstname, lastname, email, phoneNumber) => {
-    this.props.sendSimulation({firstname, lastname, email, phoneNumber})
   }
 
   componentDidMount() {
@@ -41,7 +35,7 @@ class SimulatorContainer extends Component {
     this.props.resetSimulation()
   }
   render() {
-    const {area, equipments, door, windows, roofing, changeSimulation, sendingInProgress } = this.props
+    const {area, equipments, door, windows, roofing, changeSimulation } = this.props
     const {showModalError} = this.state
     return (
       <Fragment>
@@ -57,8 +51,6 @@ class SimulatorContainer extends Component {
           windows={windows}
           roofing={roofing}
           onChange={changeSimulation}
-          onSubmit={this.handleSendSimulation}
-          submissionInProgress={sendingInProgress}
         />
       </Fragment>
     )

@@ -6,25 +6,31 @@ import { SHIPPING_FORM_VALIDATORS } from '../../../constants'
 
 export default class ShippingFormContainer extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    submissionInProgress: PropTypes.bool.isRequired
+    sendSimulation: PropTypes.func.isRequired,
+    sendingInProgress: PropTypes.bool.isRequired
   }
 
   handleSubmit = (fields) => {
-    const {onSubmit} = this.props
-    onSubmit(fields.firstname.value, fields.lastname.value, fields.email.value, fields.phoneNumber.value)
+    const {sendSimulation} = this.props
+    const user = {
+      firstname: fields.firstname.value,
+      lastname: fields.lastname.value,
+      email: fields.email.value,
+      phoneNumber: fields.phoneNumber.value
+    }
+    sendSimulation(user)
   }
 
   render() {
-    const {submissionInProgress} = this.props
+    const {sendingInProgress} = this.props
     return (
       <FormValidation onSubmit={this.handleSubmit} validators={SHIPPING_FORM_VALIDATORS}>
         {({onChange, onValid, fields}) => (
           <ShippingForm
+            sendingInProgress={sendingInProgress}
             onChange={onChange}
             onValid={onValid}
-            fields={fields}
-            submissionInProgress={submissionInProgress}/>
+            fields={fields} />
         )}
       </FormValidation>
     )

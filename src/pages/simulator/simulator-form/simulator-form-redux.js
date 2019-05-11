@@ -4,7 +4,7 @@ import {
   resetSimulation
 } from '../../../redux/actions/simulator-actions'
 
-import SimulatorForm from './simulator-form'
+import SimulatorFormContainer from './simulator-form-container'
 
 const mapStateToProps = (state) => ({
   price: state.simulator.price,
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch => ({
   resetSimulation: () => dispatch(resetSimulation())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SimulatorForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SimulatorFormContainer)
