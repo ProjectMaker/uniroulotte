@@ -16,7 +16,7 @@ export default class ShippingFormContainer extends Component {
       firstname: fields.firstname.value,
       lastname: fields.lastname.value,
       email: fields.email.value,
-      phoneNumber: fields.phoneNumber.value
+      phone_number: fields.phone_number.value
     }
     sendSimulation(user)
   }

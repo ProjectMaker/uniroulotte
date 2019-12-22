@@ -9,7 +9,7 @@ const getHeaders = () => {
 }
 
 export const http = axios.create({
-  baseURL: __API_URL__ || 'http://localhost:8080', // eslint-disable-line no-undef
+  baseURL: __API_URL__ || 'http://localhost:5000', // eslint-disable-line no-undef
   headers: {'Content-Type': 'application/json'}
 })
 

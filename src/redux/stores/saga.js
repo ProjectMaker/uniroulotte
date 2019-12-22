@@ -48,10 +48,10 @@ const fetchQuotationsFromApi = async () => {
   return {error, quotations}
 }
 
-const sendSimulationFromApi = async (firstname, lastname, email, phoneNumber, price, detail) => {
+const sendSimulationFromApi = async (firstname, lastname, email, phone_number, price, detail) => {
   let error = null
   try {
-    await sendDemand(email, firstname, lastname, phoneNumber, price, detail)
+    await sendDemand(email, firstname, lastname, phone_number, price, detail)
   } catch (err) {
     error = 'Erreur système'
   }
@@ -90,8 +90,9 @@ export function* makeSigninUser({type, credentials}) {
     yield put({type: SIGNIN_USER_ERROR, error})
   } else {
     const user = jwtDecode(token)
-    yield localstorage.addCurrentUser(user)
-    yield put({type: SIGNIN_USER_SUCCESS, user})
+    console.log(user)
+    yield localstorage.addCurrentUser(user.identity)
+    yield put({type: SIGNIN_USER_SUCCESS, user: user.identity})
     yield put(push('/list'))
   }
 }
