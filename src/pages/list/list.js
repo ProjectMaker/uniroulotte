@@ -49,12 +49,12 @@ class QuotationList extends Component {
   renderQuotations () {
     const {classes, quotations, selection, onSelect} = this.props
     return quotations.map((quotation) => (
-      <React.Fragment key={`${quotation._id}`}>
+      <React.Fragment key={`${quotation.id}`}>
         <TableRow>
           <TableCell>{quotation.firstname}</TableCell>
           <TableCell>{quotation.lastname}</TableCell>
           <TableCell>{quotation.email}</TableCell>
-          <TableCell>{quotation.phoneNumber}</TableCell>
+          <TableCell>{quotation.phone_number}</TableCell>
           <TableCell>{quotation.price.toLocaleString()}</TableCell>
           <TableCell>{moment(quotation.createdAt).format('YYYY/MM/DD')}</TableCell>
           <TableCell onClick={() => onSelect(quotation)} className={classes.tableCellAction}>Voir le détail</TableCell>

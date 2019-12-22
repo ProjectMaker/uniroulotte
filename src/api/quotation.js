@@ -2,7 +2,7 @@ import {http, getOptions} from './index'
 import {PRICES} from "../constants";
 
 export const sendDemand = (email, firstname, lastname, phoneNumber, price, detail) => {
-  return http.post('/devis', {
+  return http.post('/api/devis', {
     email,
     firstname,
     lastname,
@@ -13,7 +13,7 @@ export const sendDemand = (email, firstname, lastname, phoneNumber, price, detai
 }
 
 export const list = () => {
-  return http.get('/devis', getOptions())
+  return http.get('/api/devis', getOptions())
     .then(resp => resp.data)
 }
 

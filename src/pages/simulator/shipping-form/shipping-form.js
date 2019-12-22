@@ -89,10 +89,10 @@ const ShippingForm = ({onChange, onValid, fields, classes, sendingInProgress}) =
           error={!!fields.phoneNumber.error}
           id="phoneNumber"
           label="Numéro de téléphone"
-          name="phoneNumber"
+          name="phone_number"
           margin="none"
           variant="outlined"
-          onChange={(evt) => onChange('phoneNumber', evt.target.value)}
+          onChange={(evt) => onChange('phone_number', evt.target.value)}
           InputProps={{classes: {input: classes.input}}}
           InputLabelProps={{classes: {root: classes.label}}}
         />
