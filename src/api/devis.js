@@ -20,7 +20,7 @@ export const list = () => {
 
 export const calculateArea = (area) => {
 	const {largeur, longueur} = area
-	console.log('calculateArea', area)
+	console.log('calculateAreas', area)
 	return Math.ceil((largeur * longueur) * PRICES['area'])
 }
 
